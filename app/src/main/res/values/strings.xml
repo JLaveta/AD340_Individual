@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Assignment 1</string>
+    <string name="menu_item1">Home</string>
+    <string name="menu_item2">About John</string>
+    <string name="greeting">Hello, World!\nLaveta, John 4/8/2018</string>
+    <string name="about_john">John is currently a field service engineer for a proton therapy
+    center in Seattle, WA. He is studying Application Development at North Seattle College.</string>
+</resources>
