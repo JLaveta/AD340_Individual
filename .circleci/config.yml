@@ -167,7 +167,7 @@ jobs:
       - *decode_gcloud_key
       - run:
           name: Set Google Cloud target project
-          command: gcloud config set project weeklyprojectdemo
+          command: gcloud config set project ad340-weekly-assignments
       - run:
           name: Authenticate with Google Cloud
           command: gcloud auth activate-service-account firebase-adminsdk-n214w@ad340-weekly-assignments.iam.gserviceaccount.com --key-file ${HOME}/client-secret.json
