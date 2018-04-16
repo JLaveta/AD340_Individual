@@ -41,6 +41,14 @@ public class MainActivityTest {
 
         onView(withId(R.id.textView))
                 .check(matches(withText(R.string.greeting)));
+
+        //Clicks back to home and rechecks textView for the greeting
+        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+
+        onView(withText(R.string.menu_item3)).perform(click());
+
+        onView(withId(R.id.textView))
+                .check(matches(withText(R.string.title)));
     }
 
 }
