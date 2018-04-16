@@ -6,6 +6,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.ImageView;
+import android.content.Intent;
+import android.view.View;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -41,6 +43,16 @@ public class MainActivity extends AppCompatActivity {
             imageView.setImageResource(0);
             return true;
         }
+
+        if(item.getItemId() == R.id.register) {
+            goToRegistration();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void goToRegistration() {
+        Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+        startActivity(intent);
     }
 }

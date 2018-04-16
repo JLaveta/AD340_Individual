@@ -10,8 +10,8 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:textSize="20dp"
+        android:padding="@dimen/text_pad"
+        android:textSize="@dimen/text_size"
         android:gravity="center"
         android:text="@string/greeting"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,8 +21,8 @@
 
     <ImageView
         android:id="@+id/headshotimg"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="@dimen/img_width"
+        android:layout_height="@dimen/img_height"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
