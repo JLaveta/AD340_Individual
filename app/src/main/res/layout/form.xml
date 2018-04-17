@@ -11,7 +11,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/FormTitle"
@@ -35,6 +36,32 @@
                 android:text="@string/email"
                 android:inputType="textEmailAddress"
                 />
+
+            <EditText
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/username"
+                android:inputType="textPersonName"
+                />
+
+            <EditText
+                android:id="@+id/age"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/age"
+                android:inputType="numberDecimal"
+                />
+
+            <TextView
+                android:id="@+id/dob"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/dob"
+                android:textSize="@dimen/text_size"
+                />
+
+
 
         </LinearLayout>
 
