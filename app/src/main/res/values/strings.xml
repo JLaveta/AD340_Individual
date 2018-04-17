@@ -18,4 +18,9 @@
     <string name="age">Age</string>
     <string name="dob">Date of Birth</string>
     <string name="email">E-mail</string>
+    <string name="register">Register</string>
+
+    <!-- Registration confirmation string -->
+    <string name="confirm" formatted="false">Thanks for signing up, %1$s!</string>
+    <string name="form">Back to Form</string>
 </resources>

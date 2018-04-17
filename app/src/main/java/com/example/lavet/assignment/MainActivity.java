@@ -1,6 +1,7 @@
 package com.example.lavet.assignment;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.ImageView;
 
@@ -19,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView textView;
     private ImageView imageView;
+    private EditText editText;
     private DatePickerDialog.OnDateSetListener onDateSetListener;
 
     @Override
@@ -52,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
         if(item.getItemId() == R.id.register) {
             setContentView(R.layout.form);
             textView = findViewById(R.id.dob);
+            editText = findViewById(R.id.username);
+
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -80,5 +85,11 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void goToRegisterActivity(View view){
+        Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+        intent.putExtra(Constants.KEY_USER, editText.getText().toString());
+        startActivity(intent);
     }
 }
