@@ -20,109 +20,109 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView textView;
     private int year;
     private int day;
     private int month;
     private int dayOfYear;
-    private ImageView imageView;
-    private EditText editText;
+    private EditText editTextUser;
+    private EditText editTextName;
+    private EditText editTextEmail;
+    private TextView textViewBirth;
+    private TextView textViewAge;
+    private Button regButton;
     private DatePickerDialog.OnDateSetListener onDateSetListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        textView = findViewById(R.id.textView);
-    }
+        editTextUser = findViewById(R.id.username);
+        editTextName = findViewById(R.id.name);
+        editTextEmail = findViewById(R.id.email);
+        textViewBirth = findViewById(R.id.dob);
+        textViewAge = findViewById(R.id.age);
+        regButton = findViewById(R.id.registrationButton);
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
-    }
+        textViewBirth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar cal = Calendar.getInstance();
+                year = cal.get(Calendar.YEAR);
+                month = cal.get(Calendar.MONTH);
+                day = cal.get(Calendar.DAY_OF_MONTH);
+                dayOfYear = cal.get(Calendar.DAY_OF_YEAR);
+                DatePickerDialog datePick = new DatePickerDialog(
+                        MainActivity.this,
+                        android.R.style.Theme_Holo_Light_DarkActionBar,
+                        onDateSetListener,
+                        year, month, day);
+                datePick.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                datePick.show();
+            }
+        });
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.about_john) {
-            setContentView(R.layout.about);
-            imageView = findViewById(R.id.headshotimg);
-            int imgRes = getResources().getIdentifier("@drawable/hs", null, this.getPackageName());
-            imageView.setImageResource(imgRes);
-            return true;
-        }
+        onDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                //Print out date of birth in placeholder
+                String date = month + 1 + "/" + dayOfMonth + "/" + year;
+                textViewBirth.setText(date);
 
-        if(item.getItemId() == R.id.home) {
-            setContentView(R.layout.activity_main);
-            return true;
-        }
-
-        if(item.getItemId() == R.id.register) {
-            setContentView(R.layout.form);
-            textView = findViewById(R.id.dob);
-            editText = findViewById(R.id.username);
-
-            textView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Calendar cal = Calendar.getInstance();
-                    year = cal.get(Calendar.YEAR);
-                    month = cal.get(Calendar.MONTH);
-                    day = cal.get(Calendar.DAY_OF_MONTH);
-                    dayOfYear = cal.get(Calendar.DAY_OF_YEAR);
-                    DatePickerDialog datePick = new DatePickerDialog(
-                            MainActivity.this,
-                            android.R.style.Theme_Holo_Light_DarkActionBar,
-                            onDateSetListener,
-                            year, month, day);
-                    datePick.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                    datePick.show();
-
+                //Calculate user's age based on input DOB
+                int age = Calendar.getInstance().get(Calendar.YEAR) - year;
+                if (Calendar.getInstance().get(Calendar.DAY_OF_YEAR) < dayOfYear) {
+                    age--;
                 }
-            });
 
-            onDateSetListener = new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                    //Print out date of birth in placeholder
-                    String date = month+1 + "/" + dayOfMonth + "/" + year;
-                    textView.setText(date);
+                //Convert calculated age to a string format
+                Integer ageInt = new Integer(age);
+                String ageS = ageInt.toString();
 
-                    //Calculate user's age based on input DOB
-                    int age = Calendar.getInstance().get(Calendar.YEAR) - year;
-                    if(Calendar.getInstance().get(Calendar.DAY_OF_YEAR) < dayOfYear){
-                        age--;
-                    }
-
-                    //Convert calculated age to a string format
-                    Integer ageInt = new Integer(age);
-                    String ageS = ageInt.toString();
-
-                    //Changes text and enables or disables the registration button based on age
-                    //Users under 18 cannot register
-                    TextView ageText = findViewById(R.id.age);
-                    Button regButton = findViewById(R.id.registrationButton);
-
-                    if(ageInt >= 18){
-                        ageText.setText(getString(R.string.age) + ageS);
-                        findViewById(R.id.registrationButton).setEnabled(true);
-                    }
-
-                    else if(ageInt < 18){
-                        ageText.setText(getString(R.string.age) + ageS);
-                        regButton.setText(getString(R.string.young));
-                        regButton.setEnabled(false);
-                    }
+                //Changes text and enables or disables the registration button based on age
+                //Users under 18 cannot register
+                if (ageInt >= 18) {
+                    textViewAge.setText(getString(R.string.age) + ageS);
+                    regButton.setText(getString(R.string.register));
+                    regButton.setEnabled(true);
+                } else if (ageInt < 18) {
+                    textViewAge.setText(getString(R.string.age) + ageS);
+                    regButton.setText(getString(R.string.young));
+                    regButton.setEnabled(false);
                 }
-            };
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+            }
+        };
     }
 
     public void goToRegisterActivity(View view){
         Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
-        intent.putExtra(Constants.KEY_USER, editText.getText().toString());
+        intent.putExtra(Constants.KEY_USER, editTextUser.getText().toString());
         startActivity(intent);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        if (savedInstanceState.containsKey(Constants.KEY_DOB)) {
+            textViewBirth.setText((String)savedInstanceState.get(Constants.KEY_DOB));
+        }
+
+        if (savedInstanceState.containsKey(Constants.KEY_AGE)) {
+            textViewAge.setText((String)savedInstanceState.get(Constants.KEY_AGE));
+        }
+
+        if (savedInstanceState.containsKey(Constants.KEY_REG)) {
+            regButton.setText((String)savedInstanceState.get(Constants.KEY_REG));
+        }
+
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString(Constants.KEY_DOB, textViewBirth.getText().toString());
+        outState.putString(Constants.KEY_AGE, textViewAge.getText().toString());
+        outState.putString(Constants.KEY_REG, regButton.getText().toString());
     }
 }

@@ -5,18 +5,95 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+    <ScrollView
+        android:id="@+id/ScrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/text_pad"
-        android:textSize="@dimen/text_size"
-        android:gravity="center"
-        android:text="@string/greeting"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/text_pad"
+                android:textSize="@dimen/header"
+                android:gravity="center"
+                android:text="@string/greeting"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/FormTitle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/title"
+                android:textSize="@dimen/header"
+                android:padding="@dimen/text_pad"/>
+
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/name"
+                android:inputType="textPersonName"
+                android:padding="@dimen/text_pad"
+                android:imeOptions="flagNoExtractUi"
+                />
+
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                android:padding="@dimen/text_pad"
+                android:imeOptions="flagNoExtractUi"
+                />
+
+            <EditText
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/username"
+                android:inputType="textPersonName"
+                android:padding="@dimen/text_pad"
+                android:imeOptions="flagNoExtractUi"
+                />
+
+            <TextView
+                android:id="@+id/dob"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/dob"
+                android:padding="@dimen/text_pad"
+                android:textSize="@dimen/text_size"
+                />
+
+            <TextView
+                android:id="@+id/age"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/age"
+                android:textSize="@dimen/text_size"
+                android:padding="@dimen/text_pad"
+                />
+
+            <Button
+                android:id="@+id/registrationButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/register"
+                android:onClick="goToRegisterActivity"
+                android:padding="@dimen/text_pad"
+                android:enabled="false"
+                />
+        </LinearLayout>
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>

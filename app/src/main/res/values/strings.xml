@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Assignment 1</string>
+    <string name="app_name">Assignment 2</string>
 
     <!-- Menu Items -->
     <string name="menu_item1">Home</string>
@@ -7,17 +7,17 @@
     <string name="menu_item3">Register</string>
 
     <!-- Main activity -->
-    <string name="greeting">Hello, World!\nLaveta, John 4/16/2018</string>
+    <string name="greeting">Laveta, John 4/16/2018</string>
     <string name="about_john">John is currently a field service engineer for a proton therapy
     center in Seattle, WA. He is studying Application Development at North Seattle College.</string>
 
-    <!-- Form activity strings -->
+    <!-- Form specific strings -->
     <string name="title">User Registration</string>
     <string name="name">Name</string>
     <string name="username">Username</string>
     <string name="age">"Your age: "</string>
     <string name="young">Must be 18 to register!</string>
-    <string name="dob">Date of Birth</string>
+    <string name="dob">Click to Set Date of Birth</string>
     <string name="email">E-mail</string>
     <string name="register">Register</string>
 
