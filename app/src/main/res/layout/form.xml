@@ -19,7 +19,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/title"
-                android:textSize="@dimen/text_size"/>
+                android:textSize="@dimen/text_size"
+                android:padding="@dimen/text_pad"/>
 
             <EditText
                 android:id="@+id/name"
@@ -27,6 +28,7 @@
                 android:layout_height="match_parent"
                 android:hint="@string/name"
                 android:inputType="textPersonName"
+                android:padding="@dimen/text_pad"
                 />
 
             <EditText
@@ -35,6 +37,7 @@
                 android:layout_height="match_parent"
                 android:hint="@string/email"
                 android:inputType="textEmailAddress"
+                android:padding="@dimen/text_pad"
                 />
 
             <EditText
@@ -43,14 +46,7 @@
                 android:layout_height="match_parent"
                 android:hint="@string/username"
                 android:inputType="textPersonName"
-                />
-
-            <EditText
-                android:id="@+id/age"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="@string/age"
-                android:inputType="numberDecimal"
+                android:padding="@dimen/text_pad"
                 />
 
             <TextView
@@ -58,7 +54,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/dob"
+                android:padding="@dimen/text_pad"
+                />
+
+            <TextView
+                android:id="@+id/age"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/age"
                 android:textSize="@dimen/text_size"
+                android:padding="@dimen/text_pad"
                 />
 
             <Button
@@ -67,6 +72,8 @@
                 android:layout_height="match_parent"
                 android:text="@string/register"
                 android:onClick="goToRegisterActivity"
+                android:padding="@dimen/text_pad"
+                android:enabled="false"
                 />
 
         </LinearLayout>
