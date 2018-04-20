@@ -8,13 +8,11 @@ import android.widget.TextView;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private TextView textView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        textView = findViewById(R.id.textView);
+        TextView textView = findViewById(R.id.textView);
 
         Intent intent = getIntent();
         Bundle b = intent.getExtras();

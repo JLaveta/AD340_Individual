@@ -10,6 +10,7 @@
     <string name="greeting">Laveta, John 4/19/2018</string>
     <string name="about_john">John is currently a field service engineer for a proton therapy
     center in Seattle, WA. He is studying Application Development at North Seattle College.</string>
+    <string name="imgContent">Image of Me</string>
 
     <!-- Form specific strings -->
     <string name="title">User Registration</string>

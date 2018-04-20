@@ -6,16 +6,14 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.ImageView;
 
 import java.util.Calendar;
+import java.util.Objects;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -25,8 +23,6 @@ public class MainActivity extends AppCompatActivity {
     private int month;
     private int dayOfYear;
     private EditText editTextUser;
-    private EditText editTextName;
-    private EditText editTextEmail;
     private TextView textViewBirth;
     private TextView textViewAge;
     private Button regButton;
@@ -37,8 +33,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         editTextUser = findViewById(R.id.username);
-        editTextName = findViewById(R.id.name);
-        editTextEmail = findViewById(R.id.email);
         textViewBirth = findViewById(R.id.dob);
         textViewAge = findViewById(R.id.age);
         regButton = findViewById(R.id.registrationButton);
@@ -56,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                         android.R.style.Theme_Holo_Light_DarkActionBar,
                         onDateSetListener,
                         year, month, day);
-                datePick.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                Objects.requireNonNull(datePick.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 datePick.show();
             }
         });
@@ -75,17 +69,18 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 //Convert calculated age to a string format
-                Integer ageInt = new Integer(age);
+                Integer ageInt = age;
                 String ageS = ageInt.toString();
 
                 //Changes text and enables or disables the registration button based on age
                 //Users under 18 cannot register
+                String ageStr = getString(R.string.age) + ageS;
                 if (ageInt >= 18) {
-                    textViewAge.setText(getString(R.string.age) + ageS);
+                    textViewAge.setText(ageStr);
                     regButton.setText(getString(R.string.register));
                     regButton.setEnabled(true);
                 } else if (ageInt < 18) {
-                    textViewAge.setText(getString(R.string.age) + ageS);
+                    textViewAge.setText(ageStr);
                     regButton.setText(getString(R.string.young));
                     regButton.setEnabled(false);
                 }
