@@ -115,6 +115,10 @@ public class MainActivity extends AppCompatActivity {
             regButton.setText((String)savedInstanceState.get(Constants.KEY_REG));
         }
 
+        if(savedInstanceState.containsKey(Constants.KEY_REG_STATE)){
+            regButton.setEnabled((Boolean)savedInstanceState.get(Constants.KEY_REG_STATE));
+        }
+
     }
 
     @Override
@@ -124,5 +128,6 @@ public class MainActivity extends AppCompatActivity {
         outState.putString(Constants.KEY_DOB, textViewBirth.getText().toString());
         outState.putString(Constants.KEY_AGE, textViewAge.getText().toString());
         outState.putString(Constants.KEY_REG, regButton.getText().toString());
+        outState.putBoolean(Constants.KEY_REG_STATE, regButton.isEnabled());
     }
 }

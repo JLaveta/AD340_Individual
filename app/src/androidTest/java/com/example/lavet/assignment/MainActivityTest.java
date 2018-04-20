@@ -2,6 +2,7 @@ package com.example.lavet.assignment;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.pm.ActivityInfo;
 import android.support.test.*;
 import android.support.test.espresso.contrib.PickerActions;
 import android.support.test.rule.ActivityTestRule;
@@ -17,6 +18,7 @@ import org.junit.runner.RunWith;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -60,14 +62,41 @@ public class MainActivityTest {
         onView(withId(R.id.registrationButton))
                 .check(matches(not(isEnabled())));
 
-        //Type in username
-        onView(withId(R.id.username)).perform(typeText("testUserName"));
+        //Add text to fields
+        String testUser = "testUserName";
+        String testName = "testName";
+        String testEmail = "test@email.com";
+        onView(withId(R.id.username)).perform(typeText(testUser));
+        onView(withId(R.id.name)).perform(typeText(testName));
+        onView(withId(R.id.email)).perform(typeText(testEmail));
 
         //Test reg button status on different DOBs
         checkAge(17);
         checkAge(18);
         checkAge(19);
-        
+
+        //Test that data retention during rotation
+        testRule.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        onView(withId(R.id.name))
+                .check(matches(withText(testName)));
+        onView(withId(R.id.email))
+                .check(matches(withText(testEmail)));
+        onView(withId(R.id.username))
+                .check(matches(withText(testUser)));
+        testRule.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        //Click the registration button and check second activity
+        onView(withId(R.id.registrationButton))
+                .perform(scrollTo()).perform(click());
+        onView(withId(R.id.textView))
+                .check(matches(withText("Thanks for signing up, testUserName!")));
+
+        //Check functionality of the back to form button
+        onView(withId(R.id.formButton))
+                .perform(click());
+        onView(withId(R.id.textView))
+                .check(matches(withText(R.string.greeting)));
+
         /*Test clicking on "About John" menu item, ensure proper changes made to textView
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText(R.string.menu_item2)).perform(click());
