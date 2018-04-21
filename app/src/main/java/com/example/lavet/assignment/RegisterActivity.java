@@ -18,10 +18,17 @@ public class RegisterActivity extends AppCompatActivity {
         Bundle b = intent.getExtras();
 
         assert b!= null;
-        if(b.containsKey(Constants.KEY_USER)){
-            String username = b.getString(Constants.KEY_USER);
-            String confirmMsg = getString(R.string.confirm, username);
-            textView.setText(confirmMsg);
+        setTextView(Constants.KEY_NAME, R.id.textViewName, b);
+        setTextView(Constants.KEY_OCCU, R.id.textViewOccu, b);
+        setTextView(Constants.KEY_DESC, R.id.textViewDesc, b);
+
+    }
+
+    public void setTextView(String key, int textViewId, Bundle b){
+        if(b.containsKey(key)){
+            String putText = b.getString(key);
+            TextView textView = findViewById(textViewId);
+            textView.setText(putText);
         }
     }
 

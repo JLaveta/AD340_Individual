@@ -6,31 +6,57 @@
     android:layout_height="match_parent"
     tools:context=".RegisterActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/headshotimg"
+            android:layout_width="@dimen/img_width"
+            android:layout_height="@dimen/img_height"
+            android:contentDescription="@string/imgContent"
+            android:src="@drawable/hs"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/text_pad"/>
 
         <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
+            android:id="@+id/textViewName"
+            android:layout_width="@dimen/img_width"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/headshotimg"
+            android:layout_centerHorizontal="true"
+            android:textSize="@dimen/header" />
+
+        <TextView
+            android:id="@+id/textViewOccu"
+            android:layout_width="@dimen/img_width"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewName"
+            android:layout_centerHorizontal="true"
+            android:paddingHorizontal="@dimen/occu_pad"
+            android:textSize="@dimen/desc" />
+
+        <TextView
+            android:id="@+id/textViewDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewOccu"
             android:padding="@dimen/text_pad"
-            android:textSize="@dimen/text_size"
-            android:gravity="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            android:layout_marginHorizontal="@dimen/text_pad"
+            android:textSize="@dimen/desc"
+            android:justificationMode="inter_word"/>
 
         <Button
             android:id="@+id/formButton"
             android:layout_width="match_parent"
             android:layout_height="@dimen/button_height"
+            android:layout_below="@id/textViewDesc"
+            android:layout_marginTop="@dimen/button_margin"
             android:text="@string/form"
             android:onClick="goToFormActivity"
             />
-    </LinearLayout>
+
+    </RelativeLayout>
+
 
 </android.support.constraint.ConstraintLayout>

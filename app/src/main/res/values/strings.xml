@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Assignment 2</string>
+    <string name="app_name">Assignment 3</string>
 
     <!-- Menu Items -->
     <string name="menu_item1">Home</string>
@@ -16,6 +16,8 @@
     <string name="title">User Registration</string>
     <string name="name">Name</string>
     <string name="username">Username</string>
+    <string name="occupation">Occupation</string>
+    <string name="desc">Enter a short description of yourself…</string>
     <string name="age">"Your age: "</string>
     <string name="young">Must be 18 to register!</string>
     <string name="dob">Click to Set Date of Birth</string>
@@ -23,6 +25,6 @@
     <string name="register">Register</string>
 
     <!-- Registration confirmation string -->
-    <string name="confirm" formatted="false">Thanks for signing up, %1$s!</string>
+    <string name="nameAge" formatted="false">%1$s, %2$s</string>
     <string name="form">Back to Form</string>
 </resources>

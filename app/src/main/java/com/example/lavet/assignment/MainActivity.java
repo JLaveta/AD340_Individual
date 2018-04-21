@@ -22,7 +22,10 @@ public class MainActivity extends AppCompatActivity {
     private int day;
     private int month;
     private int dayOfYear;
+    private EditText editTextName;
     private EditText editTextUser;
+    private EditText editTextDesc;
+    private EditText editTextOccupation;
     private TextView textViewBirth;
     private TextView textViewAge;
     private Button regButton;
@@ -36,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
         textViewBirth = findViewById(R.id.dob);
         textViewAge = findViewById(R.id.age);
         regButton = findViewById(R.id.registrationButton);
+        editTextDesc = findViewById(R.id.desc);
+        editTextOccupation = findViewById(R.id.occupation);
+        editTextName = findViewById(R.id.name);
 
         textViewBirth.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,7 +96,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToRegisterActivity(View view){
         Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
-        intent.putExtra(Constants.KEY_USER, editTextUser.getText().toString());
+        intent.putExtra(Constants.KEY_NAME, editTextName.getText().toString());
+        intent.putExtra(Constants.KEY_AGE, textViewAge.getText().toString());
+        intent.putExtra(Constants.KEY_DESC, editTextDesc.getText().toString());
+        intent.putExtra(Constants.KEY_OCCU, editTextOccupation.getText().toString());
         startActivity(intent);
     }
 
