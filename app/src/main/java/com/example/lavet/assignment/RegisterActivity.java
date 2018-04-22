@@ -19,6 +19,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         assert b!= null;
         setTextView(Constants.KEY_NAME, R.id.textViewName, b);
+        setTextView(Constants.KEY_AGE, R.id.textViewAge, b);
         setTextView(Constants.KEY_OCCU, R.id.textViewOccu, b);
         setTextView(Constants.KEY_DESC, R.id.textViewDesc, b);
 

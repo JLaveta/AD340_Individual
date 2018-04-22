@@ -6,57 +6,73 @@
     android:layout_height="match_parent"
     tools:context=".RegisterActivity">
 
-    <RelativeLayout
+    <ScrollView
+        android:id="@+id/ScrollView1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:scrollbars="vertical">
 
-        <ImageView
-            android:id="@+id/headshotimg"
-            android:layout_width="@dimen/img_width"
-            android:layout_height="@dimen/img_height"
-            android:contentDescription="@string/imgContent"
-            android:src="@drawable/hs"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/text_pad"/>
-
-        <TextView
-            android:id="@+id/textViewName"
-            android:layout_width="@dimen/img_width"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/headshotimg"
-            android:layout_centerHorizontal="true"
-            android:textSize="@dimen/header" />
-
-        <TextView
-            android:id="@+id/textViewOccu"
-            android:layout_width="@dimen/img_width"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textViewName"
-            android:layout_centerHorizontal="true"
-            android:paddingHorizontal="@dimen/occu_pad"
-            android:textSize="@dimen/desc" />
-
-        <TextView
-            android:id="@+id/textViewDesc"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textViewOccu"
-            android:padding="@dimen/text_pad"
-            android:layout_marginHorizontal="@dimen/text_pad"
-            android:textSize="@dimen/desc"
-            android:justificationMode="inter_word"/>
+            android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/formButton"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/button_height"
-            android:layout_below="@id/textViewDesc"
-            android:layout_marginTop="@dimen/button_margin"
-            android:text="@string/form"
-            android:onClick="goToFormActivity"
-            />
+            <ImageView
+                android:id="@+id/headshotimg"
+                android:layout_width="@dimen/img_width"
+                android:layout_height="@dimen/img_height"
+                android:contentDescription="@string/imgContent"
+                android:src="@drawable/hs"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/text_pad"/>
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/textViewName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/headshotimg"
+                android:layout_alignStart="@id/headshotimg"
+                android:textSize="@dimen/header" />
+
+            <TextView
+                android:id="@+id/textViewAge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/headshotimg"
+                android:layout_toEndOf="@id/textViewName"
+                android:layout_marginLeft="@dimen/occu_pad"
+                android:textSize="@dimen/header" />
+
+            <TextView
+                android:id="@+id/textViewOccu"
+                android:layout_width="@dimen/img_width"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textViewName"
+                android:layout_centerHorizontal="true"
+                android:paddingHorizontal="@dimen/occu_pad"
+                android:textSize="@dimen/desc" />
+
+            <TextView
+                android:id="@+id/textViewDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textViewOccu"
+                android:padding="@dimen/text_pad"
+                android:layout_marginHorizontal="@dimen/text_pad"
+                android:textSize="@dimen/desc"
+                android:justificationMode="inter_word"/>
+
+            <Button
+                android:id="@+id/formButton"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height"
+                android:layout_below="@id/textViewDesc"
+                android:layout_marginTop="@dimen/button_margin"
+                android:text="@string/form"
+                android:onClick="goToFormActivity"
+                />
+
+        </RelativeLayout>
+    </ScrollView>
 
 
 </android.support.constraint.ConstraintLayout>

@@ -88,6 +88,8 @@ public class MainActivityTest {
                 .perform(scrollTo()).perform(click());
         onView(withId(R.id.textViewName))
                 .check(matches(withText(testName)));
+        onView(withId(R.id.textViewAge))
+                .check(matches(withText("19")));
         onView(withId(R.id.textViewOccu))
                 .check(matches(withText(testOccu)));
         onView(withId(R.id.textViewDesc))

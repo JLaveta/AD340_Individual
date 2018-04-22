@@ -22,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     private int day;
     private int month;
     private int dayOfYear;
+    private int age;
+    private String ageS;
     private EditText editTextName;
     private EditText editTextUser;
     private EditText editTextDesc;
@@ -69,14 +71,14 @@ public class MainActivity extends AppCompatActivity {
                 textViewBirth.setText(date);
 
                 //Calculate user's age based on input DOB
-                int age = Calendar.getInstance().get(Calendar.YEAR) - year;
+                age = Calendar.getInstance().get(Calendar.YEAR) - year;
                 if (Calendar.getInstance().get(Calendar.DAY_OF_YEAR) < dayOfYear) {
                     age--;
                 }
 
                 //Convert calculated age to a string format
                 Integer ageInt = age;
-                String ageS = ageInt.toString();
+                ageS = ageInt.toString();
 
                 //Changes text and enables or disables the registration button based on age
                 //Users under 18 cannot register
@@ -97,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
     public void goToRegisterActivity(View view){
         Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
         intent.putExtra(Constants.KEY_NAME, editTextName.getText().toString());
-        intent.putExtra(Constants.KEY_AGE, textViewAge.getText().toString());
+        intent.putExtra(Constants.KEY_AGE, ageS);
         intent.putExtra(Constants.KEY_DESC, editTextDesc.getText().toString());
         intent.putExtra(Constants.KEY_OCCU, editTextOccupation.getText().toString());
         startActivity(intent);
