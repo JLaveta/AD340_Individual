@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
     private int year;
     private int day;
     private int month;
-    private int dayOfYear;
     private int age;
     private String ageS;
     private EditText editTextName;
@@ -53,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
                 year = cal.get(Calendar.YEAR);
                 month = cal.get(Calendar.MONTH);
                 day = cal.get(Calendar.DAY_OF_MONTH);
-                dayOfYear = cal.get(Calendar.DAY_OF_YEAR);
                 DatePickerDialog datePick = new DatePickerDialog(
                         MainActivity.this,
                         android.R.style.Theme_Holo_Light_DarkActionBar,
@@ -117,7 +115,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (savedInstanceState.containsKey(Constants.KEY_AGE)) {
-            textViewAge.setText((String)savedInstanceState.get(Constants.KEY_AGE));
+            ageS = ((String)savedInstanceState.get(Constants.KEY_AGE));
+            String ageStr = getString(R.string.age) + ageS;
+            textViewAge.setText(ageStr);
         }
 
         if (savedInstanceState.containsKey(Constants.KEY_REG)) {
@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
 
         outState.putString(Constants.KEY_DOB, textViewBirth.getText().toString());
-        outState.putString(Constants.KEY_AGE, textViewAge.getText().toString());
+        outState.putString(Constants.KEY_AGE, ageS);
         outState.putString(Constants.KEY_REG, regButton.getText().toString());
         outState.putBoolean(Constants.KEY_REG_STATE, regButton.isEnabled());
     }

@@ -18,10 +18,9 @@ public class RegisterActivity extends AppCompatActivity {
         Bundle b = intent.getExtras();
 
         assert b!= null;
-        String nameAge = b.getString(Constants.KEY_NAME) + ", " + b.getString(Constants.KEY_AGE);
-        textViewNameAge.setText(nameAge);
-        //setTextView(Constants.KEY_NAME, R.id.textViewName, b);
-        //setTextView(Constants.KEY_AGE, R.id.textViewAge, b);
+        String name = b.getString(Constants.KEY_NAME);
+        String age = b.getString(Constants.KEY_AGE);
+        textViewNameAge.setText(getResources().getString(R.string.nameAge, name, age));
         setTextView(Constants.KEY_OCCU, R.id.textViewOccu, b);
         setTextView(Constants.KEY_DESC, R.id.textViewDesc, b);
 
