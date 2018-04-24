@@ -26,7 +26,7 @@
                 android:layout_marginTop="@dimen/text_pad"/>
 
             <TextView
-                android:id="@+id/textViewName"
+                android:id="@+id/textViewNameAge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/headshotimg"
@@ -34,19 +34,10 @@
                 android:textSize="@dimen/header" />
 
             <TextView
-                android:id="@+id/textViewAge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/headshotimg"
-                android:layout_toEndOf="@id/textViewName"
-                android:layout_marginLeft="@dimen/occu_pad"
-                android:textSize="@dimen/header" />
-
-            <TextView
                 android:id="@+id/textViewOccu"
                 android:layout_width="@dimen/img_width"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textViewName"
+                android:layout_below="@+id/textViewNameAge"
                 android:layout_centerHorizontal="true"
                 android:paddingHorizontal="@dimen/occu_pad"
                 android:textSize="@dimen/desc" />

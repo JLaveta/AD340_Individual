@@ -12,14 +12,16 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        TextView textView = findViewById(R.id.textView);
+        TextView textViewNameAge = findViewById(R.id.textViewNameAge);
 
         Intent intent = getIntent();
         Bundle b = intent.getExtras();
 
         assert b!= null;
-        setTextView(Constants.KEY_NAME, R.id.textViewName, b);
-        setTextView(Constants.KEY_AGE, R.id.textViewAge, b);
+        String nameAge = b.getString(Constants.KEY_NAME) + ", " + b.getString(Constants.KEY_AGE);
+        textViewNameAge.setText(nameAge);
+        //setTextView(Constants.KEY_NAME, R.id.textViewName, b);
+        //setTextView(Constants.KEY_AGE, R.id.textViewAge, b);
         setTextView(Constants.KEY_OCCU, R.id.textViewOccu, b);
         setTextView(Constants.KEY_DESC, R.id.textViewDesc, b);
 

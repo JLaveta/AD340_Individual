@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Calendar cal = Calendar.getInstance();
+                Calendar today = Calendar.getInstance();
                 year = cal.get(Calendar.YEAR);
                 month = cal.get(Calendar.MONTH);
                 day = cal.get(Calendar.DAY_OF_MONTH);
@@ -71,8 +72,10 @@ public class MainActivity extends AppCompatActivity {
                 textViewBirth.setText(date);
 
                 //Calculate user's age based on input DOB
+                Calendar dob = Calendar.getInstance();
+                dob.set(year, month, dayOfMonth);
                 age = Calendar.getInstance().get(Calendar.YEAR) - year;
-                if (Calendar.getInstance().get(Calendar.DAY_OF_YEAR) < dayOfYear) {
+                if (Calendar.getInstance().get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)) {
                     age--;
                 }
 
