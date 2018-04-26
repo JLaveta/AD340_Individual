@@ -21,8 +21,12 @@ public class MainActivity extends AppCompatActivity {
     private int year;
     private int day;
     private int month;
-    private int dayOfYear;
+    private int age;
+    private String ageS;
+    private EditText editTextName;
     private EditText editTextUser;
+    private EditText editTextDesc;
+    private EditText editTextOccupation;
     private TextView textViewBirth;
     private TextView textViewAge;
     private Button regButton;
@@ -36,15 +40,18 @@ public class MainActivity extends AppCompatActivity {
         textViewBirth = findViewById(R.id.dob);
         textViewAge = findViewById(R.id.age);
         regButton = findViewById(R.id.registrationButton);
+        editTextDesc = findViewById(R.id.desc);
+        editTextOccupation = findViewById(R.id.occupation);
+        editTextName = findViewById(R.id.name);
 
         textViewBirth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Calendar cal = Calendar.getInstance();
+                Calendar today = Calendar.getInstance();
                 year = cal.get(Calendar.YEAR);
                 month = cal.get(Calendar.MONTH);
                 day = cal.get(Calendar.DAY_OF_MONTH);
-                dayOfYear = cal.get(Calendar.DAY_OF_YEAR);
                 DatePickerDialog datePick = new DatePickerDialog(
                         MainActivity.this,
                         android.R.style.Theme_Holo_Light_DarkActionBar,
@@ -63,14 +70,16 @@ public class MainActivity extends AppCompatActivity {
                 textViewBirth.setText(date);
 
                 //Calculate user's age based on input DOB
-                int age = Calendar.getInstance().get(Calendar.YEAR) - year;
-                if (Calendar.getInstance().get(Calendar.DAY_OF_YEAR) < dayOfYear) {
+                Calendar dob = Calendar.getInstance();
+                dob.set(year, month, dayOfMonth);
+                age = Calendar.getInstance().get(Calendar.YEAR) - year;
+                if (Calendar.getInstance().get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)) {
                     age--;
                 }
 
                 //Convert calculated age to a string format
                 Integer ageInt = age;
-                String ageS = ageInt.toString();
+                ageS = ageInt.toString();
 
                 //Changes text and enables or disables the registration button based on age
                 //Users under 18 cannot register
@@ -90,7 +99,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToRegisterActivity(View view){
         Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
-        intent.putExtra(Constants.KEY_USER, editTextUser.getText().toString());
+        intent.putExtra(Constants.KEY_NAME, editTextName.getText().toString());
+        intent.putExtra(Constants.KEY_AGE, ageS);
+        intent.putExtra(Constants.KEY_DESC, editTextDesc.getText().toString());
+        intent.putExtra(Constants.KEY_OCCU, editTextOccupation.getText().toString());
         startActivity(intent);
     }
 
@@ -103,7 +115,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (savedInstanceState.containsKey(Constants.KEY_AGE)) {
-            textViewAge.setText((String)savedInstanceState.get(Constants.KEY_AGE));
+            ageS = ((String)savedInstanceState.get(Constants.KEY_AGE));
+            String ageStr = getString(R.string.age) + ageS;
+            textViewAge.setText(ageStr);
         }
 
         if (savedInstanceState.containsKey(Constants.KEY_REG)) {
@@ -121,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
 
         outState.putString(Constants.KEY_DOB, textViewBirth.getText().toString());
-        outState.putString(Constants.KEY_AGE, textViewAge.getText().toString());
+        outState.putString(Constants.KEY_AGE, ageS);
         outState.putString(Constants.KEY_REG, regButton.getText().toString());
         outState.putBoolean(Constants.KEY_REG_STATE, regButton.isEnabled());
     }

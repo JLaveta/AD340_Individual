@@ -66,6 +66,26 @@
                 android:imeOptions="flagNoExtractUi"
                 />
 
+            <EditText
+                android:id="@+id/occupation"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/occupation"
+                android:inputType="textCapWords"
+                android:padding="@dimen/text_pad"
+                android:imeOptions="flagNoExtractUi"
+                />
+
+            <EditText
+                android:id="@+id/desc"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/desc"
+                android:inputType="textMultiLine|textAutoCorrect|textCapSentences"
+                android:padding="@dimen/text_pad"
+                android:imeOptions="flagNoExtractUi"
+            />
+
             <TextView
                 android:id="@+id/dob"
                 android:layout_width="match_parent"
