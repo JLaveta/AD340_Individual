@@ -131,9 +131,6 @@ public class MainActivityTest {
         onView(withId(R.id.desc))
                 .check(matches(withText("")));
 
-        //One more rotation to cover some conditionals in onRestore
-        testRule.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-
 
         /*Test clicking on "About John" menu item, ensure proper changes made to textView
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
