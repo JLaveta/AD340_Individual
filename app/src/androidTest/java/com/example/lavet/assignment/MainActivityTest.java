@@ -1,6 +1,7 @@
 package com.example.lavet.assignment;
 
 import android.content.pm.ActivityInfo;
+import android.support.test.espresso.Espresso;
 import android.support.test.espresso.contrib.PickerActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -84,6 +85,7 @@ public class MainActivityTest {
         testRule.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         //Click the registration button and check second activity
+        Espresso.closeSoftKeyboard();
         onView(withId(R.id.registrationButton))
                 .perform(scrollTo()).perform(click());
         onView(withId(R.id.textViewNameAge))
@@ -95,9 +97,40 @@ public class MainActivityTest {
 
         //Check functionality of the back to form button
         onView(withId(R.id.formButton))
-                .perform(click());
+                .perform(scrollTo()).perform(click());
         onView(withId(R.id.textView))
                 .check(matches(withText(R.string.greeting)));
+        //Check that form is empty
+        onView(withId(R.id.name))
+                .check(matches(withText("")));
+        onView(withId(R.id.email))
+                .check(matches(withText("")));
+        onView(withId(R.id.username))
+                .check(matches(withText("")));
+        onView(withId(R.id.occupation))
+                .check(matches(withText("")));
+        onView(withId(R.id.desc))
+                .check(matches(withText("")));
+
+        //Register again to check android back button
+        checkAge(21);
+        onView(withId(R.id.registrationButton))
+                .perform(scrollTo()).perform(click());
+        Espresso.pressBack();
+        onView(withId(R.id.textView))
+                .check(matches(withText(R.string.greeting)));
+        //Check that form is empty
+        onView(withId(R.id.name))
+                .check(matches(withText("")));
+        onView(withId(R.id.email))
+                .check(matches(withText("")));
+        onView(withId(R.id.username))
+                .check(matches(withText("")));
+        onView(withId(R.id.occupation))
+                .check(matches(withText("")));
+        onView(withId(R.id.desc))
+                .check(matches(withText("")));
+
 
         /*Test clicking on "About John" menu item, ensure proper changes made to textView
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
