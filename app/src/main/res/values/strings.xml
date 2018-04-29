@@ -24,7 +24,16 @@
     <string name="email">E-mail</string>
     <string name="register">Register</string>
 
-    <!-- Registration confirmation string -->
+    <!-- Registration Fragment strings -->
+    <string name="regTitle">Profile</string>
     <string name="nameAge" formatted="false">%1$s, %2$s</string>
     <string name="form">Back to Form</string>
+
+    <!-- Setting Fragment Strings -->
+    <string name="setTitle">Settings</string>
+    <string name="settingPlaceHolder">This is the settings page!</string>
+
+    <!-- Matches Fragment Strings -->
+    <string name="matchTitle">Matches</string>
+    <string name="matchesPlaceHolder">You\'ll find potential matches here!</string>
 </resources>

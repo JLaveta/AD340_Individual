@@ -1,14 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileFragment">
+    tools:context=".RegisterActivity">
 
-
-    <TextView
+    <ScrollView
+        android:id="@+id/ScrollView1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="profile" />
+        android:scrollbars="vertical">
 
-</FrameLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/headshotimg"
+                android:layout_width="@dimen/img_width"
+                android:layout_height="@dimen/img_height"
+                android:contentDescription="@string/imgContent"
+                android:src="@drawable/hs"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/text_pad"/>
+
+            <TextView
+                android:id="@+id/textViewNameAge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/headshotimg"
+                android:layout_alignStart="@id/headshotimg"
+                android:textSize="@dimen/header" />
+
+            <TextView
+                android:id="@+id/textViewOccu"
+                android:layout_width="@dimen/img_width"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textViewNameAge"
+                android:layout_centerHorizontal="true"
+                android:paddingHorizontal="@dimen/occu_pad"
+                android:textSize="@dimen/desc" />
+
+            <TextView
+                android:id="@+id/textViewDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textViewOccu"
+                android:padding="@dimen/text_pad"
+                android:layout_marginHorizontal="@dimen/text_pad"
+                android:textSize="@dimen/desc"
+                android:justificationMode="inter_word"/>
+
+        </RelativeLayout>
+    </ScrollView>
+
+
+</android.support.constraint.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.example.lavet.assignment;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -31,9 +32,9 @@ public class LoggedInActivity extends AppCompatActivity {
     //Add fragments to tabs
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(new ProfileFragment(), "Tab 1");
-        adapter.addFragment(new MatchesFragment(), "Tab 2");
-        adapter.addFragment(new SettingsFragment(), "Tab 3");
+        adapter.addFragment(new ProfileFragment(), getString(R.string.regTitle), getIntent().getExtras());
+        adapter.addFragment(new MatchesFragment(), getString(R.string.matchTitle));
+        adapter.addFragment(new SettingsFragment(), getString(R.string.setTitle));
 
         viewPager.setAdapter(adapter);
     }
@@ -61,9 +62,22 @@ public class LoggedInActivity extends AppCompatActivity {
             mFragmentTitleList.add(title);
         }
 
+        public void addFragment(Fragment fragment, String title, Bundle b){
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+            fragment.setArguments(b);
+        }
+
         @Override
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
+    }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        Intent intent = new Intent(LoggedInActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 }
