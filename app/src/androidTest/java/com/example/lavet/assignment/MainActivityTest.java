@@ -98,7 +98,7 @@ public class MainActivityTest {
         onView(withId(R.id.textViewDesc))
                 .check(matches(withText(testDesc)));
 
-        //Check tabs and fragments
+        //Check tabs and fragments for functionality
         onView(withId(R.id.viewpager)).perform(swipeLeft());
         onView(withId(R.id.matchText))
                 .check(matches(withText(R.string.matchesPlaceHolder)));
