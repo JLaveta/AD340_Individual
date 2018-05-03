@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
     <ScrollView
         android:id="@+id/ScrollView1"
         android:layout_width="match_parent"
@@ -15,25 +13,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/text_pad"
-                android:textSize="@dimen/header"
-                android:gravity="center"
-                android:text="@string/greeting"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/FormTitle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/title"
-                android:textSize="@dimen/header"
+                android:textSize="@dimen/text_size"
                 android:padding="@dimen/text_pad"/>
 
             <EditText
@@ -43,7 +29,6 @@
                 android:hint="@string/name"
                 android:inputType="textPersonName"
                 android:padding="@dimen/text_pad"
-                android:imeOptions="flagNoExtractUi"
                 />
 
             <EditText
@@ -53,7 +38,6 @@
                 android:hint="@string/email"
                 android:inputType="textEmailAddress"
                 android:padding="@dimen/text_pad"
-                android:imeOptions="flagNoExtractUi"
                 />
 
             <EditText
@@ -63,28 +47,7 @@
                 android:hint="@string/username"
                 android:inputType="textPersonName"
                 android:padding="@dimen/text_pad"
-                android:imeOptions="flagNoExtractUi"
                 />
-
-            <EditText
-                android:id="@+id/occupation"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="@string/occupation"
-                android:inputType="textCapWords"
-                android:padding="@dimen/text_pad"
-                android:imeOptions="flagNoExtractUi"
-                />
-
-            <EditText
-                android:id="@+id/desc"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="@string/desc"
-                android:inputType="textMultiLine|textAutoCorrect|textCapSentences"
-                android:padding="@dimen/text_pad"
-                android:imeOptions="flagNoExtractUi"
-            />
 
             <TextView
                 android:id="@+id/dob"
@@ -92,7 +55,6 @@
                 android:layout_height="match_parent"
                 android:hint="@string/dob"
                 android:padding="@dimen/text_pad"
-                android:textSize="@dimen/text_size"
                 />
 
             <TextView
@@ -113,7 +75,8 @@
                 android:padding="@dimen/text_pad"
                 android:enabled="false"
                 />
-        </LinearLayout>
-    </ScrollView>
 
+        </LinearLayout>
+
+    </ScrollView>
 </android.support.constraint.ConstraintLayout>
