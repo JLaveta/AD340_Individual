@@ -52,6 +52,16 @@
                 android:textSize="@dimen/desc"
                 android:justificationMode="inter_word"/>
 
+            <Button
+                android:id="@+id/formButton"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height"
+                android:layout_below="@id/textViewDesc"
+                android:layout_marginTop="@dimen/button_margin"
+                android:text="@string/form"
+                android:onClick="goToFormActivity"
+                />
+
         </RelativeLayout>
     </ScrollView>
 
