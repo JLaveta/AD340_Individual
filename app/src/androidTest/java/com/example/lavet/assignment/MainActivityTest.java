@@ -16,13 +16,16 @@ import java.util.Calendar;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
+import static android.support.test.espresso.action.ViewActions.swipeLeft;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static java.util.concurrent.CompletableFuture.allOf;
 import static org.hamcrest.Matchers.not;
 
 
@@ -95,27 +98,15 @@ public class MainActivityTest {
         onView(withId(R.id.textViewDesc))
                 .check(matches(withText(testDesc)));
 
-        //Check functionality of the back to form button
-        onView(withId(R.id.formButton))
-                .perform(scrollTo()).perform(click());
-        onView(withId(R.id.textView))
-                .check(matches(withText(R.string.greeting)));
-        //Check that form is empty
-        onView(withId(R.id.name))
-                .check(matches(withText("")));
-        onView(withId(R.id.email))
-                .check(matches(withText("")));
-        onView(withId(R.id.username))
-                .check(matches(withText("")));
-        onView(withId(R.id.occupation))
-                .check(matches(withText("")));
-        onView(withId(R.id.desc))
-                .check(matches(withText("")));
+        //Check tabs and fragments
+        onView(withId(R.id.viewpager)).perform(swipeLeft());
+        onView(withId(R.id.matchText))
+                .check(matches(withText(R.string.matchesPlaceHolder)));
+        onView(withId(R.id.viewpager)).perform(swipeLeft());
+        onView(withId(R.id.settingText))
+                .check(matches(withText(R.string.settingPlaceHolder)));
 
-        //Register again to check android back button
-        checkAge(21);
-        onView(withId(R.id.registrationButton))
-                .perform(scrollTo()).perform(click());
+        //Test back button functionality
         Espresso.pressBack();
         onView(withId(R.id.textView))
                 .check(matches(withText(R.string.greeting)));
