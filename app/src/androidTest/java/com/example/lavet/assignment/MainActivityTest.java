@@ -98,7 +98,7 @@ public class MainActivityTest {
         onView(withId(R.id.textViewDesc))
                 .check(matches(withText(testDesc)));
 
-        //Check tabs and fragments for functionality
+        //Check tabs and fragments
         onView(withId(R.id.viewpager)).perform(swipeLeft());
         onView(withId(R.id.matchText))
                 .check(matches(withText(R.string.matchesPlaceHolder)));
@@ -121,30 +121,6 @@ public class MainActivityTest {
                 .check(matches(withText("")));
         onView(withId(R.id.desc))
                 .check(matches(withText("")));
-
-
-        /*Test clicking on "About John" menu item, ensure proper changes made to textView
-        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-        onView(withText(R.string.menu_item2)).perform(click());
-
-        onView(withId(R.id.textView))
-                .check(matches(withText(R.string.about_john)));*/
-
-        /*Clicks back to home and rechecks textView for the greeting
-        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-
-        onView(withText(R.string.menu_item1)).perform(click());
-
-        onView(withId(R.id.textView))
-                .check(matches(withText(R.string.greeting)));*/
-
-        /*Clicks back to home and rechecks textView for the greeting
-        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-
-        onView(withText(R.string.menu_item3)).perform(click());
-
-        onView(withId(R.id.textView))
-                .check(matches(withText(R.string.title)));*/
     }
 
     public static void setDate(int datePickerLaunchViewId, int year, int monthOfYear, int dayOfMonth) {

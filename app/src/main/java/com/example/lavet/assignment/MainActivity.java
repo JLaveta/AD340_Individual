@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goToRegisterActivity(View view){
-        Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+        Intent intent = new Intent(MainActivity.this, LoggedInActivity.class);
         intent.putExtra(Constants.KEY_NAME, editTextName.getText().toString());
         intent.putExtra(Constants.KEY_AGE, ageS);
         intent.putExtra(Constants.KEY_DESC, editTextDesc.getText().toString());
