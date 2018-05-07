@@ -8,16 +8,21 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Provides UI for the view with List.
  */
 public class MatchesFragment extends Fragment {
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -32,7 +37,7 @@ public class MatchesFragment extends Fragment {
         return recyclerView;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public ImageView picture;
         public TextView name;
@@ -44,10 +49,24 @@ public class MatchesFragment extends Fragment {
             picture = itemView.findViewById(R.id.card_image);
             name = itemView.findViewById(R.id.card_title);
             description = itemView.findViewById(R.id.card_text);
+            ImageButton likeButton = itemView.findViewById(R.id.like_button);
+
+            likeButton.setOnClickListener(this);
+
+        }
+
+        public void onClick(View view){
+            Context context = getContext();
+            CharSequence text = getString(R.string.liked, name.getText());
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
         }
     }
 
-    public static class ContentAdapter extends RecyclerView.Adapter<ViewHolder>{
+    public class ContentAdapter extends RecyclerView.Adapter<ViewHolder>{
         //Set numbers of List in RecyclerView.
         private static final int LENGTH = 4;
         private final String[] mMatches;
