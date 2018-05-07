@@ -36,4 +36,6 @@
     <!-- Matches Fragment Strings -->
     <string name="matchTitle">Matches</string>
     <string name="matchesPlaceHolder">You\'ll find potential matches here!</string>
+    <string name="match1">Kitten 1</string>
+    <string name="match1_desc">Look at this adorable kitten!</string>
 </resources>

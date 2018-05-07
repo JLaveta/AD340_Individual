@@ -58,12 +58,15 @@ public class MainActivityTest {
                 .check(matches(not(isEnabled())));
 
         //Add text to fields
-        String testName = "testName";
-        String testEmail = "test@email.com";
-        String testUser = "testUserName";
-        String testOccu = "Superhero";
-        String testDesc = "John is currently a field service engineer for a proton therapy " +
-                "center in Seattle, WA. He is studying Application Development at North Seattle College.\n\nHere is another line!";
+        String testName = "Fluffers";
+        String testEmail = "rdy2pounce@gmail.com";
+        String testUser = "RodentSlayer08";
+        String testOccu = "Mouse Catcher";
+        String testDesc = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam aliquet " +
+                "metus nec vulputate bibendum. Quisque sagittis blandit risus nec placerat. Donec " +
+                "nec leo ipsum. Sed commodo tempus ligula, pulvinar consectetur nisl feugiat nec. " +
+                "\n\nAliquam mollis tortor id lacinia dignissim. Curabitur sollicitudin pellentesque " +
+                "mi nec sodales. In hac habitasse platea dictumst.";
         onView(withId(R.id.name)).perform(scrollTo()).perform(typeText(testName));
         onView(withId(R.id.email)).perform(scrollTo()).perform(typeText(testEmail));
         onView(withId(R.id.username)).perform(scrollTo()).perform(typeText(testUser));
@@ -100,7 +103,7 @@ public class MainActivityTest {
 
         //Check tabs and fragments
         onView(withId(R.id.viewpager)).perform(swipeLeft());
-        onView(withId(R.id.matchText))
+        onView(withId(R.id.card_text))
                 .check(matches(withText(R.string.matchesPlaceHolder)));
         onView(withId(R.id.viewpager)).perform(swipeLeft());
         onView(withId(R.id.settingText))
