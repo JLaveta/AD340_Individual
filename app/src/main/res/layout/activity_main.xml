@@ -71,7 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/desc"
-            android:inputType="textMultiLine|textAutoCorrect|textCapSentences"
+            android:inputType="textMultiLine|textCapSentences|textNoSuggestions"
             android:padding="@dimen/text_pad"
             android:imeOptions="flagNoExtractUi"
         />

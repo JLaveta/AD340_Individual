@@ -65,8 +65,7 @@ public class MainActivityTest {
         String testDesc = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam aliquet " +
                 "metus nec vulputate bibendum. Quisque sagittis blandit risus nec placerat. Donec " +
                 "nec leo ipsum. Sed commodo tempus ligula, pulvinar consectetur nisl feugiat nec. " +
-                "\n\nAliquam mollis tortor id lacinia dignissim. Curabitur sollicitudin pellentesque " +
-                "mi nec sodales. In hac habitasse platea dictumst.";
+                "\n\nAliquam mollis tortor id lacinia dignissim.";
         onView(withId(R.id.name)).perform(scrollTo()).perform(typeText(testName));
         onView(withId(R.id.email)).perform(scrollTo()).perform(typeText(testEmail));
         onView(withId(R.id.username)).perform(scrollTo()).perform(typeText(testUser));
@@ -103,8 +102,6 @@ public class MainActivityTest {
 
         //Check tabs and fragments
         onView(withId(R.id.viewpager)).perform(swipeLeft());
-        onView(withId(R.id.card_text))
-                .check(matches(withText(R.string.matchesPlaceHolder)));
         onView(withId(R.id.viewpager)).perform(swipeLeft());
         onView(withId(R.id.settingText))
                 .check(matches(withText(R.string.settingPlaceHolder)));
