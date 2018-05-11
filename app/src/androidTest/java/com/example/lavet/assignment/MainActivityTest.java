@@ -2,11 +2,18 @@ package com.example.lavet.assignment;
 
 import android.content.pm.ActivityInfo;
 import android.support.test.espresso.Espresso;
+import android.support.test.espresso.UiController;
+import android.support.test.espresso.ViewAction;
 import android.support.test.espresso.contrib.PickerActions;
+import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.view.View;
 import android.widget.DatePicker;
 
+import org.hamcrest.BaseMatcher;
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
@@ -19,13 +26,13 @@ import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.action.ViewActions.swipeLeft;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static java.util.concurrent.CompletableFuture.allOf;
 import static org.hamcrest.Matchers.not;
 
 
@@ -58,12 +65,14 @@ public class MainActivityTest {
                 .check(matches(not(isEnabled())));
 
         //Add text to fields
-        String testName = "testName";
-        String testEmail = "test@email.com";
-        String testUser = "testUserName";
-        String testOccu = "Superhero";
-        String testDesc = "John is currently a field service engineer for a proton therapy " +
-                "center in Seattle, WA. He is studying Application Development at North Seattle College.\n\nHere is another line!";
+        String testName = "Fluffers";
+        String testEmail = "rdy2pounce@gmail.com";
+        String testUser = "RodentSlayer08";
+        String testOccu = "Mouse Catcher";
+        String testDesc = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam aliquet " +
+                "metus nec vulputate bibendum. Quisque sagittis blandit risus nec placerat. Donec " +
+                "nec leo ipsum. Sed commodo tempus ligula, pulvinar consectetur nisl feugiat nec. " +
+                "\n\nAliquam mollis tortor id lacinia dignissim.";
         onView(withId(R.id.name)).perform(scrollTo()).perform(typeText(testName));
         onView(withId(R.id.email)).perform(scrollTo()).perform(typeText(testEmail));
         onView(withId(R.id.username)).perform(scrollTo()).perform(typeText(testUser));
@@ -98,10 +107,18 @@ public class MainActivityTest {
         onView(withId(R.id.textViewDesc))
                 .check(matches(withText(testDesc)));
 
-        //Check tabs and fragments
+        //Check Matches Tab, Like Button, Toast
         onView(withId(R.id.viewpager)).perform(swipeLeft());
-        onView(withId(R.id.matchText))
-                .check(matches(withText(R.string.matchesPlaceHolder)));
+
+        onView(withId(R.id.my_recycler_view)).perform(
+                RecyclerViewActions
+                        .actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id.like_button)));
+
+        onView(withText("You liked Pretzel."))
+                .inRoot(withDecorView(not(testRule.getActivity().getWindow().getDecorView())))
+                .check(matches(isDisplayed()));
+
+        //Check Settings Tab
         onView(withId(R.id.viewpager)).perform(swipeLeft());
         onView(withId(R.id.settingText))
                 .check(matches(withText(R.string.settingPlaceHolder)));
@@ -121,6 +138,7 @@ public class MainActivityTest {
                 .check(matches(withText("")));
         onView(withId(R.id.desc))
                 .check(matches(withText("")));
+
     }
 
     public static void setDate(int datePickerLaunchViewId, int year, int monthOfYear, int dayOfMonth) {
@@ -152,5 +170,26 @@ public class MainActivityTest {
         }
     }
 
+    public static class MyViewAction {
 
+        public static ViewAction clickChildViewWithId(final int id) {
+            return new ViewAction() {
+                @Override
+                public Matcher<View> getConstraints() {
+                    return null;
+                }
+
+                @Override
+                public String getDescription() {
+                    return "Click on a child view with specified id.";
+                }
+
+                @Override
+                public void perform(UiController uiController, View view) {
+                    View v = view.findViewById(id);
+                    v.performClick();
+                }
+            };
+        }
+    }
 }
