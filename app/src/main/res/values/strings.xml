@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Assignment 4</string>
+    <string name="app_name">Assignment 5</string>
 
     <!-- Menu Items -->
     <string name="menu_item1">Home</string>
@@ -7,7 +7,7 @@
     <string name="menu_item3">Register</string>
 
     <!-- Main activity -->
-    <string name="greeting">Laveta, John 5/2/2018</string>
+    <string name="greeting">Laveta, John 5/10/2018</string>
     <string name="about_john">John is currently a field service engineer for a proton therapy
     center in Seattle, WA. He is studying Application Development at North Seattle College.</string>
     <string name="imgContent">Image of Me</string>
