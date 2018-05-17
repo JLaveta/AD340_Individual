@@ -4,13 +4,18 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
 import java.util.Objects;
@@ -30,7 +35,13 @@ public class MainActivity extends AppCompatActivity {
     private TextView textViewBirth;
     private TextView textViewAge;
     private Button regButton;
+    private TextView userName;
+    private ImageView userPhoto;
     private DatePickerDialog.OnDateSetListener onDateSetListener;
+
+    //Firebase instance variables
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseUser mFirebaseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +54,23 @@ public class MainActivity extends AppCompatActivity {
         editTextDesc = findViewById(R.id.desc);
         editTextOccupation = findViewById(R.id.occupation);
         editTextName = findViewById(R.id.name);
+        userName = findViewById(R.id.userName);
+        userPhoto = findViewById(R.id.userPhoto);
+
+        //Initializae Firebase Auth
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        if(mFirebaseUser == null){
+            //Not signed in, launch the sign in activity
+            startActivity(new Intent(this, SignInActivity.class));
+            finish();
+            return;
+        } else {
+            userName.setText(mFirebaseUser.getDisplayName());
+            if (mFirebaseUser.getPhotoUrl() != null){
+                Picasso.get().load(mFirebaseUser.getPhotoUrl().toString()).into(userPhoto);
+            }
+        }
 
         textViewBirth.setOnClickListener(new View.OnClickListener() {
             @Override

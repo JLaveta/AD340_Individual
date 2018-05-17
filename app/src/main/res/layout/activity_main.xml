@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
@@ -17,6 +18,21 @@
             android:textSize="@dimen/header"
             android:gravity="center"
             android:text="@string/greeting" />
+
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/text_pad"
+            android:textSize="@dimen/header"
+            android:gravity="center"
+            android:text="@string/greeting" />
+
+        <ImageView
+            android:id="@+id/userPhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_pad" />
 
         <TextView
             android:id="@+id/FormTitle"
