@@ -18,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.lavet.assignment.viewmodels.FirebaseViewModel;
+
 /**
  * Provides UI for the view with List.
  */
@@ -75,6 +77,7 @@ public class MatchesFragment extends Fragment {
 
 
         public ContentAdapter(Context context) {
+
             Resources resources = context.getResources();
             mMatches = resources.getStringArray(R.array.matches);
             mMatchDesc = resources.getStringArray(R.array.descriptions);
