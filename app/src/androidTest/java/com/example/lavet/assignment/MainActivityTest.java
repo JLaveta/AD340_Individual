@@ -11,8 +11,6 @@ import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
 import android.widget.DatePicker;
 
-import org.hamcrest.BaseMatcher;
-import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.junit.Rule;
@@ -26,8 +24,6 @@ import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.action.ViewActions.swipeLeft;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withHint;
@@ -44,6 +40,11 @@ public class MainActivityTest {
 
     @Test
     public void tester(){
+
+        onView(withId(R.id.sign_in_button))
+                .perform(click());
+        
+
         //Test for initial greeting
         onView(withId(R.id.textView))
                 .check(matches(withText(R.string.greeting)));
