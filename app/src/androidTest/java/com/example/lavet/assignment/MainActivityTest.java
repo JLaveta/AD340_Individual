@@ -11,6 +11,9 @@ import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
 import android.widget.DatePicker;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.junit.Rule;
@@ -40,10 +43,6 @@ public class MainActivityTest {
 
     @Test
     public void tester(){
-
-        onView(withId(R.id.sign_in_button))
-                .perform(click());
-        
 
         //Test for initial greeting
         onView(withId(R.id.textView))

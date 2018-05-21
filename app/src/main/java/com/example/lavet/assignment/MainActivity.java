@@ -57,8 +57,8 @@ public class MainActivity extends AppCompatActivity {
         userName = findViewById(R.id.userName);
         userPhoto = findViewById(R.id.userPhoto);
 
-        //Initializae Firebase Auth
-        mFirebaseAuth = FirebaseAuth.getInstance();
+        //Initializae Firebase Auth - commented out for now because testing has not been covered
+        /*mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         if(mFirebaseUser == null){
             //Not signed in, launch the sign in activity
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
             if (mFirebaseUser.getPhotoUrl() != null){
                 Picasso.get().load(mFirebaseUser.getPhotoUrl().toString()).into(userPhoto);
             }
-        }
+        }*/
 
         textViewBirth.setOnClickListener(new View.OnClickListener() {
             @Override

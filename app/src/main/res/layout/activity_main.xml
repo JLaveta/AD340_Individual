@@ -26,7 +26,7 @@
             android:padding="@dimen/text_pad"
             android:textSize="@dimen/header"
             android:gravity="center"
-            android:text="@string/greeting" />
+            android:text="" />
 
         <ImageView
             android:id="@+id/userPhoto"
