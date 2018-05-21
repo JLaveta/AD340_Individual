@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Assignment 5</string>
+    <string name="app_name">Assignment 6</string>
 
     <!-- Menu Items -->
     <string name="menu_item1">Home</string>
@@ -7,7 +7,7 @@
     <string name="menu_item3">Register</string>
 
     <!-- Main activity -->
-    <string name="greeting">Laveta, John 5/10/2018</string>
+    <string name="greeting">Laveta, John 5/20/2018</string>
     <string name="about_john">John is currently a field service engineer for a proton therapy
     center in Seattle, WA. He is studying Application Development at North Seattle College.</string>
     <string name="imgContent">Image of Me</string>
@@ -37,4 +37,7 @@
     <string name="matchTitle">Matches</string>
     <string name="matchesPlaceHolder">You\'ll find potential matches here!</string>
     <string name="liked" formatted="false">You liked %1$s.</string>
+    <string name="unliked" formatted="false">You unliked %1$s.</string>
+
+    <string name="sign_in">Sign In</string>
 </resources>
