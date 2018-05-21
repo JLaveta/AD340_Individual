@@ -1,29 +1,33 @@
 package com.example.lavet.assignment;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.lavet.assignment.models.Matches;
 import com.example.lavet.assignment.viewmodels.FirebaseViewModel;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+
 
 /**
  * Provides UI for the view with List.
  */
 public class MatchesFragment extends Fragment {
+
+    private FirebaseViewModel viewModel = new FirebaseViewModel();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,25 +74,24 @@ public class MatchesFragment extends Fragment {
 
     public class ContentAdapter extends RecyclerView.Adapter<ViewHolder>{
         //Set numbers of List in RecyclerView.
-        private static final int LENGTH = 4;
-        private final String[] mMatches;
-        private final String[] mMatchDesc;
-        private final Drawable[] mMatchPhoto;
+        private static final int LENGTH=6;
+        private ArrayList<String> mMatches = new ArrayList<>();
+        private ArrayList<String> mMatchId = new ArrayList<>();
+        private ArrayList<String> mMatchPhotoUrl = new ArrayList<>();
 
 
-        public ContentAdapter(Context context) {
+        private ContentAdapter(Context context) {
 
-            Resources resources = context.getResources();
-            mMatches = resources.getStringArray(R.array.matches);
-            mMatchDesc = resources.getStringArray(R.array.descriptions);
-            TypedArray a = resources.obtainTypedArray(R.array.match_photo);
-            mMatchPhoto = new Drawable[a.length()];
+            Log.d("Database","Getting matches from db");
 
-            for (int i = 0; i < mMatchPhoto.length; i++) {
-                mMatchPhoto[i] = a.getDrawable(i);
-            }
-
-            a.recycle();
+            viewModel.getMatches((response) -> {
+                for(Matches matches:response) {
+                    mMatches.add(matches.name);
+                    mMatchId.add(matches.uid);
+                    mMatchPhotoUrl.add(matches.imageUrl);
+                    Log.d("Matches", matches.name + " " + matches.uid + " " + matches.imageUrl);
+                }
+            });
         }
 
         @Override
@@ -98,14 +101,20 @@ public class MatchesFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position){
-            holder.picture.setImageDrawable(mMatchPhoto[position % mMatchPhoto.length]);
-            holder.name.setText(mMatches[position % mMatches.length]);
-            holder.description.setText(mMatchDesc[position % mMatchDesc.length]);
+            Picasso.get().load(mMatchPhotoUrl.get(position)).into(holder.picture);
+            holder.name.setText(mMatches.get(position));
+            //holder.description.setText(mMatchDesc[position % mMatchDesc.size()]);
         }
 
         @Override
         public int getItemCount() {
             return LENGTH;
         }
+    }
+
+    @Override
+    public void onPause() {
+        viewModel.clear();
+        super.onPause();
     }
 }

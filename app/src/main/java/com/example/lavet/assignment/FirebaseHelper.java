@@ -21,10 +21,14 @@ public class FirebaseHelper extends AppCompatActivity {
         viewModel = new FirebaseViewModel();
 
         textView = findViewById(R.id.textViewFirebase);
-
-        ArrayList<Matches> matchList = new ArrayList<>();
-        ArrayList<Matches> finalMatchList = new ArrayList<>();
-        viewModel.getMatches((response) -> textView.setText(response.get(1).name));
+        
+        viewModel.getMatches((response) -> {
+            for(Matches matches:response){
+                textView.setText(textView.getText() + "ID: " + matches.uid + "\nName: " +
+                        matches.name + "\nLiked: " + matches.liked + "\nImageURL: " +
+                        matches.imageUrl + "\n\n");
+            }
+        });
 
 
     }
