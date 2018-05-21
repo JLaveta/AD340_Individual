@@ -1,3 +1,4 @@
+/* Commenting out - not currently in use.
 package com.example.lavet.assignment;
 
 import android.content.Intent;
@@ -114,3 +115,4 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         Toast.makeText(this, "Google Play Services error.", Toast.LENGTH_SHORT).show();
     }
 }
+*/
