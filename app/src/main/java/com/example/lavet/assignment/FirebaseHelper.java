@@ -21,7 +21,7 @@ public class FirebaseHelper extends AppCompatActivity {
         viewModel = new FirebaseViewModel();
 
         textView = findViewById(R.id.textViewFirebase);
-        
+
         viewModel.getMatches((response) -> {
             for(Matches matches:response){
                 textView.setText(textView.getText() + "ID: " + matches.uid + "\nName: " +
