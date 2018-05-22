@@ -11,4 +11,36 @@
         android:layout_height="match_parent"
         android:text="@string/settingPlaceHolder" />
 
+    <EditText
+        android:id="@+id/reminderTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Reminder Time"/>
+    <EditText
+        android:id="@+id/maxDistance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Max Distance"/>
+    <EditText
+        android:id="@+id/gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Gender"/>
+    <EditText
+        android:id="@+id/privacy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Privacy"/>
+    <EditText
+        android:id="@+id/minAge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Min Age"/>
+    <EditText
+        android:id="@+id/maxAge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Max Age"/>
+
+
 </FrameLayout>
