@@ -41,6 +41,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Max Age"/>
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/submit"/>
 
 
 </FrameLayout>

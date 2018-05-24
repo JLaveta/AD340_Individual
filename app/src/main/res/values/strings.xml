@@ -40,4 +40,6 @@
     <string name="unliked" formatted="false">You unliked %1$s.</string>
 
     <string name="sign_in">Sign In</string>
+    <string name="submit">Submit</string>
+    <string name="setSubmit">Settings saved!</string>
 </resources>
