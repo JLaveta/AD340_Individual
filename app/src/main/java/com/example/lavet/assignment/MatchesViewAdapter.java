@@ -56,53 +56,56 @@ public class MatchesViewAdapter extends RecyclerView.Adapter<MatchesViewAdapter.
             } else if (holder.mMatch.liked) {
                 holder.likeButton.getDrawable().setTint(getColor(view.getContext(), R.color.red));
             }
-
-            holder.likeButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Context context = view.getContext();
-                    Matches match = holder.mMatch;
-                    CharSequence text = "";
-
-                    if (match.liked) {
-                        text = context.getString(R.string.unliked, holder.name.getText());
-                        match.liked = false;
-                    } else if (!match.liked) {
-                        text = context.getString(R.string.liked, holder.name.getText());
-                        match.liked = true;
-                    }
-
-                    int duration = Toast.LENGTH_SHORT;
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-                    toast.show();
-
-                    if (null != mListener) {
-                        mListener.onListFragmentInteraction(holder.mMatch);
-                    }
-                }
-            });
         }
 
         @Override
         public int getItemCount() {
-            return mMatchesList.size();
+            if(mMatchesList != null)
+                return mMatchesList.size();
+
+            return 0;
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
             public ImageView picture;
             public TextView name;
-            public TextView description;
             public ImageButton likeButton;
             public Matches mMatch;
+            public final View mView;
 
             public ViewHolder(View view) {
                 super(view);
-
+                mView = view;
                 picture = view.findViewById(R.id.card_image);
                 name = view.findViewById(R.id.card_title);
-                description = view.findViewById(R.id.card_text);
-                likeButton = view.findViewById(R.id.like_button);
+
+                likeButton = itemView.findViewById(R.id.like_button);
+                likeButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (null != mListener) {
+                            Context context = v.getContext();
+                            CharSequence toastText;
+
+                            if (mMatch.liked) {
+                                likeButton.getDrawable().setTint(getColor(context, R.color.button_grey));
+                                toastText = context.getString(R.string.unliked, name.getText());
+                                mMatch.liked = false;
+                            } else {
+                                likeButton.getDrawable().setTint(getColor(context, R.color.red));
+                                toastText = context.getString(R.string.liked, name.getText());
+                                mMatch.liked = true;
+                            }
+
+                            int duration = Toast.LENGTH_SHORT;
+                            Toast toast = Toast.makeText(context, toastText, duration);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
+
+                            mListener.onListFragmentInteraction(mMatch);
+                        }
+                    }
+                });
             }
         }
 

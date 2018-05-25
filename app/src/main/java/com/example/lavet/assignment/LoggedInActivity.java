@@ -13,10 +13,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.lavet.assignment.models.Matches;
+import com.example.lavet.assignment.viewmodels.FirebaseViewModel;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoggedInActivity extends AppCompatActivity {
+public class LoggedInActivity extends AppCompatActivity implements MatchesFragment.OnListFragmentInteractionListener {
+
+    private FirebaseViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +42,10 @@ public class LoggedInActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
         adapter.addFragment(new ProfileFragment(), getString(R.string.regTitle), getIntent().getExtras());
+
+        viewModel = new FirebaseViewModel();
         adapter.addFragment(new MatchesFragment(), getString(R.string.matchTitle));
+
         adapter.addFragment(new SettingsFragment(), getString(R.string.setTitle));
 
         viewPager.setAdapter(adapter);
@@ -83,5 +91,10 @@ public class LoggedInActivity extends AppCompatActivity {
         super.onBackPressed();
         Intent intent = new Intent(LoggedInActivity.this, MainActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onListFragmentInteraction(Matches matches) {
+        viewModel.updateMatches(matches);
     }
 }
