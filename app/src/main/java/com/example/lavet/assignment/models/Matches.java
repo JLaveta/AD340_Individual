@@ -65,4 +65,5 @@ public class Matches implements Parcelable {
         dest.writeString(imageUrl);
         dest.writeByte((byte) (liked ? 1 : 0));
     }
+
 }

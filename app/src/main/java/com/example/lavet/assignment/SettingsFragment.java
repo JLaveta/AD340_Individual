@@ -51,7 +51,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
         submitButton.setOnClickListener(this);
 
-        new GetSettingsTask(this.getActivity(), settings).execute();
+        new GetSettingsTask(this, settings).execute();
 
         return setView;
     }
@@ -73,27 +73,27 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
 
-        new UpdateSettingsTask(this.getActivity(), settings).execute();
+        new UpdateSettingsTask(this, settings).execute();
     }
 
     private class GetSettingsTask extends AsyncTask<Void, Void, Settings> {
 
-        private WeakReference<Activity> weakActivity;
+        private WeakReference<Fragment> weakFragment;
         private Settings settings;
 
-        public GetSettingsTask(Activity activity, Settings settings) {
-            weakActivity = new WeakReference<>(activity);
+        public GetSettingsTask(Fragment fragment, Settings settings) {
+            weakFragment = new WeakReference<>(fragment);
             this.settings = settings;
         }
 
         @Override
         protected Settings doInBackground(Void... voids) {
-            Activity activity = weakActivity.get();
-            if(activity == null) {
+            Fragment fragment = weakFragment.get();
+            if(fragment == null) {
                 return null;
             }
 
-            AppDatabase db = AppDatabase.getDatabase(activity.getApplicationContext());
+            AppDatabase db = AppDatabase.getDatabase(fragment.getActivity().getApplicationContext());
 
             List<Settings> settings = db.settingsDao().getAll();
 
@@ -105,38 +105,38 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
         @Override
         protected void onPostExecute(Settings settings) {
-            Activity activity = weakActivity.get();
-            if(settings == null || activity == null) {
+            Fragment fragment = weakFragment.get();
+            if(settings == null || fragment == null) {
                 return;
             }
 
             reminderTime.setText(settings.getRemTime());
-            maxDistance.setText(settings.getMiles());
+            maxDistance.setText(String.valueOf(settings.getMiles()));
             userGender.setText(settings.getGender());
             privacySet.setText(settings.getPrivacy());
-            minAge.setText(settings.getMinAge());
-            maxAge.setText(settings.getMaxAge());
+            minAge.setText(String.valueOf(settings.getMinAge()));
+            maxAge.setText(String.valueOf(settings.getMaxAge()));
         }
     }
 
     private class UpdateSettingsTask extends AsyncTask<Void, Void, Settings> {
 
-        private WeakReference<Activity> weakActivity;
+        private WeakReference<Fragment> weakFragment;
         private Settings settings;
 
-        public UpdateSettingsTask(Activity activity, Settings settings) {
-            weakActivity = new WeakReference<>(activity);
+        public UpdateSettingsTask(Fragment fragment, Settings settings) {
+            weakFragment = new WeakReference<>(fragment);
             this.settings = settings;
         }
 
         @Override
         protected Settings doInBackground(Void... voids) {
-            Activity activity = weakActivity.get();
-            if(activity == null) {
+            Fragment fragment = weakFragment.get();
+            if(fragment == null) {
                 return null;
             }
 
-            AppDatabase db = AppDatabase.getDatabase(activity.getApplicationContext());
+            AppDatabase db = AppDatabase.getDatabase(fragment.getContext());
 
             db.settingsDao().insertAll(settings);
             return settings;
@@ -144,17 +144,17 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
         @Override
         protected void onPostExecute(Settings settings) {
-            Activity activity = weakActivity.get();
-            if(settings == null || activity == null) {
+            Fragment fragment = weakFragment.get();
+            if(settings == null || fragment == null) {
                 return;
             }
 
             reminderTime.setText(settings.getRemTime());
-            maxDistance.setText(settings.getMiles());
+            maxDistance.setText(String.valueOf(settings.getMiles()));
             userGender.setText(settings.getGender());
             privacySet.setText(settings.getPrivacy());
-            minAge.setText(settings.getMinAge());
-            maxAge.setText(settings.getMaxAge());
+            minAge.setText(String.valueOf(settings.getMinAge()));
+            maxAge.setText(String.valueOf(settings.getMaxAge()));
         }
     }
 
