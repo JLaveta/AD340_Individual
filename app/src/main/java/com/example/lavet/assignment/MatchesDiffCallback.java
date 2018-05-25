@@ -5,7 +5,7 @@ import android.support.v7.util.DiffUtil;
 
 import com.example.lavet.assignment.models.Matches;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 public class MatchesDiffCallback extends DiffUtil.Callback {
@@ -13,7 +13,7 @@ public class MatchesDiffCallback extends DiffUtil.Callback {
     private final List<Matches> mOldMatchList;
     private final List<Matches> mNewMatchList;
 
-    public MatchesDiffCallback(ArrayList<Matches> oldMatchList, ArrayList<Matches> newMatchList) {
+    public MatchesDiffCallback(List<Matches> oldMatchList, List<Matches> newMatchList) {
         this.mOldMatchList = oldMatchList;
         this.mNewMatchList = newMatchList;
     }
