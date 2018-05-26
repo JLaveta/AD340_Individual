@@ -149,7 +149,7 @@ public class MainActivityTest {
         //Set age range
 
         //Submit settings
-        onView(withId(R.id.submitButton)).perform(click());
+        onView(withId(R.id.submitButton)).perform(scrollTo()).perform(click());
         onView(withText("Settings Saved!"))
                 .inRoot(withDecorView(not(testRule.getActivity().getWindow().getDecorView())))
                 .check(matches(isDisplayed()));
