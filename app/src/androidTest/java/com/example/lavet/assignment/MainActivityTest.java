@@ -128,6 +128,11 @@ public class MainActivityTest {
         onView(withText(containsString("Cool Guy Mike")))
                 .inRoot(withDecorView(not(testRule.getActivity().getWindow().getDecorView())))
                 .check(matches(isDisplayed()));
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         //Check Settings Tab
         onView(withId(R.id.viewpager)).perform(swipeLeft());
