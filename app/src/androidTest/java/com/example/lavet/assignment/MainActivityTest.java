@@ -155,7 +155,7 @@ public class MainActivityTest {
 
         //Submit settings
         onView(withId(R.id.submitButton)).perform(scrollTo()).perform(click());
-        onView(withText("Settings Saved!"))
+        onView(withText("Settings saved!"))
                 .inRoot(withDecorView(not(testRule.getActivity().getWindow().getDecorView())))
                 .check(matches(isDisplayed()));
 
