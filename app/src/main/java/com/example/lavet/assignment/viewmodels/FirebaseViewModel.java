@@ -16,19 +16,19 @@ public class FirebaseViewModel {
         matchModel = new FirebaseModel();
     }
 
-    public void addMatches(Matches item) {
-        matchModel.addMatches(item);
-    }
+    /*public void addMatches(Matches match) {
+        matchModel.addMatches(match);
+    }*/
 
     public void getMatches(Consumer<ArrayList<Matches>> responseCallback) {
         matchModel.getMatches(
                 (DataSnapshot dataSnapshot) -> {
                     ArrayList<Matches> matchList = new ArrayList<>();
                     for (DataSnapshot matchesSnapshot : dataSnapshot.getChildren()) {
-                        Matches item = matchesSnapshot.getValue(Matches.class);
-                        assert item != null;
-                        item.uid = matchesSnapshot.getKey();
-                        matchList.add(item);
+                        Matches match = matchesSnapshot.getValue(Matches.class);
+                        assert match != null;
+                        match.uid = matchesSnapshot.getKey();
+                        matchList.add(match);
                     }
                     responseCallback.accept(matchList);
                 },
@@ -36,8 +36,8 @@ public class FirebaseViewModel {
         );
     }
 
-    public void updateMatches(Matches item) {
-        matchModel.updateMatchById(item);
+    public void updateMatches(Matches match) {
+        matchModel.updateMatchById(match);
     }
 
     public void clear() {
