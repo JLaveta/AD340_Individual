@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:rsb="http://schemas.android.com/apk/res-auto"
     tools:context=".SettingsFragment">
 
     <ScrollView android:id="@+id/ScrollView1"
@@ -11,53 +12,101 @@
         android:scrollbars="vertical"
         xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/settingText"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/settingPlaceHolder" />
+            <TextView
+                android:id="@+id/settingText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/settingPlaceHolder"
+                android:textSize="@dimen/header"/>
 
-    <EditText
-        android:id="@+id/reminderTime"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Reminder Time"/>
-    <EditText
-        android:id="@+id/maxDistance"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Max Distance"/>
-    <EditText
-        android:id="@+id/gender"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Gender"/>
-    <EditText
-        android:id="@+id/privacy"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Privacy"/>
-    <EditText
-        android:id="@+id/minAge"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Min Age"/>
-    <EditText
-        android:id="@+id/maxAge"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Max Age"/>
-    <Button
-        android:id="@+id/submitButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/submit" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size"
+                android:text="@string/timeTitle"
+                android:layout_marginTop="@dimen/occu_pad"/>
 
-    </LinearLayout>
+            <TimePicker
+                android:id="@+id/reminderTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/clear"
+                android:layout_marginTop="@dimen/clear"
+                android:scaleX=".75"
+                android:scaleY=".75"
+                android:timePickerMode="spinner" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size"
+                android:text="@string/distTitle"
+                android:layout_marginTop="@dimen/occu_pad"/>
+            <Spinner
+                android:id="@+id/maxDistance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size"
+                android:text="@string/genderTitle"
+                android:layout_marginTop="@dimen/occu_pad"/>
+            <Spinner
+                android:id="@+id/gender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size"
+                android:text="@string/privacyTitle"
+                android:layout_marginTop="@dimen/occu_pad"/>
+            <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/privacyGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/privateButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/privateButton" />
+                <RadioButton
+                    android:id="@+id/publicButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/publicButton" />
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size"
+                android:text="@string/ageTitle"
+                android:layout_marginTop="@dimen/occu_pad"/>
+
+            <com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar
+                android:id="@+id/ageSeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/clear"
+                rsb:absoluteMaxValue="18"
+                rsb:absoluteMinValue="100" />
+            <Button
+                android:id="@+id/submitButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/submit" />
+
+
+        </LinearLayout>
     </ScrollView>
 </FrameLayout>

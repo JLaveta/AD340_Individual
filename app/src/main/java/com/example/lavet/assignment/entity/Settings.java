@@ -10,11 +10,14 @@ public class Settings {
     @PrimaryKey
     private int sid;
 
-    @ColumnInfo(name="reminder_time")
-    private String remTime;
+    @ColumnInfo(name="reminder_time_hour")
+    private int remTimeHour;
+
+    @ColumnInfo(name="reminder_time_min")
+    private int remTimeMin;
 
     @ColumnInfo(name="search_distance")
-    private int miles;
+    private String miles;
 
     @ColumnInfo(name="gender")
     private String gender;
@@ -36,19 +39,27 @@ public class Settings {
         this.sid = sid;
     }
 
-    public String getRemTime() {
-        return remTime;
+    public int getRemTimeHour() {
+        return remTimeHour;
     }
 
-    public void setRemTime(String remTime) {
-        this.remTime = remTime;
+    public void setRemTimeHour(int remTimeHour) {
+        this.remTimeHour = remTimeHour;
     }
 
-    public int getMiles() {
+    public int getRemTimeMin() {
+        return remTimeMin;
+    }
+
+    public void setRemTimeMin(int remTimeMin) {
+        this.remTimeMin = remTimeMin;
+    }
+
+    public String getMiles() {
         return miles;
     }
 
-    public void setMiles(int miles) {
+    public void setMiles(String miles) {
         this.miles = miles;
     }
 

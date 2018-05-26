@@ -45,6 +45,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:15.0.1'
     implementation 'com.google.firebase:firebase-storage:15.0.2'
     implementation 'android.arch.persistence.room:runtime:1.1.0'
+    implementation 'com.yahoo.mobile.client.android.util.rangeseekbar:rangeseekbar-library:0.1.0'
     annotationProcessor 'android.arch.persistence.room:compiler:1.1.0'
 
     testImplementation 'junit:junit:4.12'

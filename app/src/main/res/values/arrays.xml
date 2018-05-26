@@ -1,60 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="matches">
-        <item>Pretzel</item>
-        <item>Simba</item>
-        <item>Fiona</item>
-        <item>Pepper</item>
+    <string-array name="search_ranges">
+        <item>1 Mile</item>
+        <item>5 Miles</item>
+        <item>20 Miles</item>
+        <item>50 Miles</item>
+        <item>100 Miles</item>
     </string-array>
-
-    <string-array name="descriptions">
-        <item>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Ut sagittis malesuada magna, sit amet scelerisque justo.
-            Nulla cursus odio sit amet velit sodales, quis viverra velit vulputate.
-            Donec lobortis sem id magna faucibus, id porttitor erat efficitur.
-            Quisque tincidunt purus et lorem convallis, vel porta eros cursus.
-            Mauris vestibulum diam sit amet sem auctor, vel laoreet quam cursus.
-            Integer et augue nec justo egestas tempor sit amet eget mauris.
-            hasellus vitae lectus vitae ante convallis mollis. Maecenas nec eleifend massa.
-            Etiam hendrerit dictum rutrum. Vestibulum nulla odio, tempor eget orci at, ultricies
-            pharetra elit. Quisque non ex ut nunc efficitur tincidunt. Donec commodo semper aliquet.
-            Donec varius quam vel sapien fringilla mollis. Ut nunc est, pellentesque sit
-            amet lectus at, rhoncus malesuada dolor. Duis ultrices sapien a arcu elementum,
-            et sodales sapien tristique. In vel commodo nisi.</item>
-        <item>
-            Integer volutpat elementum tempus. In ac quam tellus. Quisque dapibus dolor
-            vel odio commodo rhoncus. Sed molestie facilisis sem in rutrum. Integer a
-            nulla ipsum. Pellentesque vitae diam ac diam suscipit suscipit. Duis scelerisque
-            risus ligula, at placerat odio tincidunt vel. Morbi convallis, nibh bibendum lacinia
-            viverra, diam purus tempor nibh, et euismod quam magna ut ante. Maecenas sit amet orci
-            eu mi venenatis luctus vel a nunc. Suspendisse a sollicitudin elit. Donec interdum
-            ligula nunc, eu luctus mi dictum id. Etiam porttitor suscipit orci, a aliquet lectus
-            porttitor in.
-        </item>
-        <item>
-            Ut sed dapibus ex. Vivamus efficitur, urna sit amet hendrerit ultrices, eros dolor
-            consequat leo, id cursus quam est ac odio. In porttitor mauris leo, sed eleifend libero
-            euismod vitae. Pellentesque habitant morbi tristique senectus et netus et malesuada
-            fames ac turpis egestas. Nulla aliquet volutpat risus, non vulputate diam iaculis nec.
-            Praesent ac consectetur odio. Aliquam euismod mauris ac pellentesque lobortis. Integer
-            rutrum felis quis urna aliquam, ac porta lorem suscipit. Nulla dignissim egestas
-            commodo. Etiam imperdiet, ligula sed commodo laoreet, justo velit ornare metus, vitae
-            ultrices diam nulla at libero. Aenean vitae risus tempor, finibus nisi eu, vehicula
-            odio. Nulla placerat et sapien ut rutrum.
-        </item>
-        <item>
-            Praesent ac consectetur odio. Aliquam euismod mauris ac pellentesque lobortis. Integer
-            rutrum felis quis urna aliquam, ac porta lorem suscipit. Nulla dignissim egestas
-            commodo. Etiam imperdiet, ligula sed commodo laoreet, justo velit ornare metus, vitae
-            ultrices diam nulla at libero. Aenean vitae risus tempor, finibus nisi eu, vehicula
-            odio. Nulla placerat et sapien ut rutrum.
-        </item>
+    <string-array name="gender_options">
+        <item>Female</item>
+        <item>Male</item>
+        <item>TransFemale</item>
+        <item>TransMale</item>
+        <item>Nonconforming</item>
+        <item>Something Else</item>
+        <item>Decline to Answer</item>
     </string-array>
-
-    <array name="match_photo">
-        <item>@drawable/kitten1</item>
-        <item>@drawable/kitten2</item>
-        <item>@drawable/kitten3</item>
-        <item>@drawable/kitten4</item>
-    </array>
 </resources>

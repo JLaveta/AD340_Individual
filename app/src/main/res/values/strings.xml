@@ -29,17 +29,23 @@
     <string name="nameAge" formatted="false">%1$s, %2$s</string>
     <string name="form">Back to Form</string>
 
-    <!-- Setting Fragment Strings -->
-    <string name="setTitle">Settings</string>
-    <string name="settingPlaceHolder">This is the settings page!</string>
-
     <!-- Matches Fragment Strings -->
     <string name="matchTitle">Matches</string>
     <string name="matchesPlaceHolder">You\'ll find potential matches here!</string>
     <string name="liked" formatted="false">You liked %1$s.</string>
     <string name="unliked" formatted="false">You unliked %1$s.</string>
 
+    <!-- Setting Fragment String -->
     <string name="sign_in">Sign In</string>
     <string name="submit">Submit</string>
     <string name="setSubmit">Settings saved!</string>
+    <string name="privateButton">Private</string>
+    <string name="publicButton">Public</string>
+    <string name="setTitle">Settings</string>
+    <string name="settingPlaceHolder">Match Settings</string>
+    <string name="timeTitle">Set Reminder Time</string>
+    <string name="distTitle">Set Search Distance</string>
+    <string name="ageTitle">Set Age Range</string>
+    <string name="genderTitle">Set Gender</string>
+    <string name="privacyTitle">Set Privacy</string>
 </resources>

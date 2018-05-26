@@ -4,18 +4,26 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.service.autofill.CharSequenceTransformation;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.lavet.assignment.entity.Settings;
+import com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -25,14 +33,15 @@ import java.util.List;
  */
 public class SettingsFragment extends Fragment implements View.OnClickListener {
 
-    public EditText reminderTime;
-    public EditText maxDistance;
-    public EditText userGender;
-    public EditText privacySet;
-    public EditText minAge;
-    public EditText maxAge;
+    public TimePicker reminderTime;
+    public Spinner distanceSpinner;
+    public Spinner userGender;
+    public RadioGroup privacySet;
+    public RangeSeekBar ageSeekBar;
     public Button submitButton;
     public View setView;
+    public ArrayAdapter distAdapter;
+    public ArrayAdapter genAdapter;
     Settings settings = new Settings();
 
 
@@ -41,13 +50,52 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
 
         setView = inflater.inflate(R.layout.activity_settings_fragment, null);
-        reminderTime = setView.findViewById(R.id.reminderTime);
-        maxDistance = setView.findViewById(R.id.maxDistance);
-        userGender = setView.findViewById(R.id.gender);
-        privacySet = setView.findViewById(R.id.privacy);
-        minAge = setView.findViewById(R.id.minAge);
-        maxAge = setView.findViewById(R.id.maxAge);
         submitButton = setView.findViewById(R.id.submitButton);
+
+        //Setup age range seekbar
+        ageSeekBar = setView.findViewById(R.id.ageSeekBar);
+        ageSeekBar.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener<Integer>() {
+            @Override
+            public void onRangeSeekBarValuesChanged(RangeSeekBar<?> bar, Integer minValue, Integer maxValue) {
+                Toast.makeText(getContext(), minValue + "-" + maxValue, Toast.LENGTH_LONG).show();
+            }
+
+        });
+        ageSeekBar.setNotifyWhileDragging(true);
+
+        //Setup reminder time picker
+        reminderTime = setView.findViewById(R.id.reminderTime);
+        reminderTime.setIs24HourView(false);
+
+        //Setup distance spinner
+        distanceSpinner = setView.findViewById(R.id.maxDistance);
+        distAdapter = ArrayAdapter.createFromResource(this.getContext(),
+                R.array.search_ranges, android.R.layout.simple_spinner_item);
+        distAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        distanceSpinner.setAdapter(distAdapter);
+
+        //Setup gender spinner
+        userGender = setView.findViewById(R.id.gender);
+        genAdapter = ArrayAdapter.createFromResource(this.getContext(),
+                R.array.gender_options, android.R.layout.simple_spinner_item);
+        genAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        userGender.setAdapter(genAdapter);
+
+        //Setup Privacy Radio buttons
+        privacySet = setView.findViewById(R.id.privacyGroup);
+        privacySet.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch(checkedId){
+                    case R.id.privateButton:
+                        //Stuff
+                        break;
+                    case R.id.publicButton:
+                        //Other stuff
+                        break;
+                }
+            }
+        });
 
         submitButton.setOnClickListener(this);
 
@@ -58,12 +106,14 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v){
-        settings.setGender(userGender.getText().toString());
-        settings.setMaxAge(Integer.parseInt(maxAge.getText().toString()));
-        settings.setMinAge(Integer.parseInt(minAge.getText().toString()));
-        settings.setMiles(Integer.parseInt(maxDistance.getText().toString()));
-        settings.setRemTime(reminderTime.getText().toString());
-        settings.setPrivacy(privacySet.getText().toString());
+
+        settings.setRemTimeHour(reminderTime.getHour());
+        settings.setRemTimeMin(reminderTime.getMinute());
+        settings.setMaxAge((Integer) ageSeekBar.getSelectedMaxValue());
+        settings.setMinAge((Integer) ageSeekBar.getSelectedMinValue());
+        settings.setMiles(distanceSpinner.getSelectedItem().toString());
+        settings.setPrivacy(setView.findViewById(privacySet.getCheckedRadioButtonId()).toString());
+        settings.setGender(userGender.getSelectedItem().toString());
 
         Context context = getContext();
         int duration = Toast.LENGTH_SHORT;
@@ -110,12 +160,23 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
                 return;
             }
 
-            reminderTime.setText(settings.getRemTime());
-            maxDistance.setText(String.valueOf(settings.getMiles()));
-            userGender.setText(settings.getGender());
-            privacySet.setText(settings.getPrivacy());
-            minAge.setText(String.valueOf(settings.getMinAge()));
-            maxAge.setText(String.valueOf(settings.getMaxAge()));
+            //Todo: Set all settings fields based on database
+            reminderTime.setHour(settings.getRemTimeHour());
+            reminderTime.setMinute(settings.getRemTimeMin());
+            distanceSpinner.setSelection(distAdapter.getPosition(settings.getMiles()));
+            userGender.setSelection(genAdapter.getPosition(settings.getGender()));
+            if(settings.getPrivacy().equals(getString(R.string.privateButton))){
+                privacySet.check(R.id.privateButton);
+            } else{
+                privacySet.check(R.id.publicButton);
+            }
+            ageSeekBar.setSelectedMinValue(settings.getMinAge());
+            ageSeekBar.setSelectedMaxValue(settings.getMaxAge());
+            //reminderTime.setText(settings.getRemTime());
+            //userGender.setText(settings.getGender());
+            //privacySet.setText(settings.getPrivacy());
+            //minAge.setText(String.valueOf(settings.getMinAge()));
+            //maxAge.setText(String.valueOf(settings.getMaxAge()));
         }
     }
 
@@ -149,12 +210,24 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
                 return;
             }
 
-            reminderTime.setText(settings.getRemTime());
-            maxDistance.setText(String.valueOf(settings.getMiles()));
-            userGender.setText(settings.getGender());
-            privacySet.setText(settings.getPrivacy());
-            minAge.setText(String.valueOf(settings.getMinAge()));
-            maxAge.setText(String.valueOf(settings.getMaxAge()));
+            //Todo: Set all fields based on values in database
+            reminderTime.setHour(settings.getRemTimeHour());
+            reminderTime.setMinute(settings.getRemTimeMin());
+            distanceSpinner.setSelection(distAdapter.getPosition(settings.getMiles()));
+            userGender.setSelection(genAdapter.getPosition(settings.getGender()));
+            if(settings.getPrivacy().equals(getString(R.string.privateButton))){
+                privacySet.check(R.id.privateButton);
+            } else{
+                privacySet.check(R.id.publicButton);
+            }
+            ageSeekBar.setSelectedMinValue(settings.getMinAge());
+            ageSeekBar.setSelectedMaxValue(settings.getMaxAge());
+            //reminderTime.setText(settings.getRemTime());
+            //maxDistance.setText(String.valueOf(settings.getMiles()));
+            //userGender.setText(settings.getGender());
+            //privacySet.setText(settings.getPrivacy());
+            //minAge.setText(String.valueOf(settings.getMinAge()));
+            //maxAge.setText(String.valueOf(settings.getMaxAge()));
         }
     }
 
