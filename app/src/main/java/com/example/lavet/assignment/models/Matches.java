@@ -21,12 +21,6 @@ public class Matches implements Parcelable {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public Matches(String uid, boolean liked, String name) {
-        this.uid = uid;
-        this.liked = liked;
-        this.name = name;
-    }
-
     public Matches(Parcel in) {
         imageUrl = in.readString();
         liked = in.readByte() != 0;
@@ -45,16 +39,6 @@ public class Matches implements Parcelable {
         }
     };
 
-    @Exclude
-    public Map<String, Object> toMap() {
-        HashMap<String, Object> result = new HashMap<>();
-        result.put("uid", uid);
-        result.put("liked", liked);
-        result.put("name", name);
-
-        return result;
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -64,5 +48,7 @@ public class Matches implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(imageUrl);
         dest.writeByte((byte) (liked ? 1 : 0));
+        dest.writeString(name);
     }
+
 }
