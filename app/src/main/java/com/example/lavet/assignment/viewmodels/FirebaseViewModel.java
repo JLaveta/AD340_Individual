@@ -16,9 +16,9 @@ public class FirebaseViewModel {
         matchModel = new FirebaseModel();
     }
 
-    public void addMatches(Matches match) {
+    /*public void addMatches(Matches match) {
         matchModel.addMatches(match);
-    }
+    }*/
 
     public void getMatches(Consumer<ArrayList<Matches>> responseCallback) {
         matchModel.getMatches(

@@ -21,10 +21,10 @@ public class FirebaseModel {
         listeners = new HashMap<>();
     }
 
-    public void addMatches(Matches match) {
+    /*public void addMatches(Matches match) {
         DatabaseReference matchesRef = mDatabase.child("matches");
         matchesRef.push().setValue(match);
-    }
+    }*/
 
     public void getMatches(Consumer<DataSnapshot> dataChangedCallback, Consumer<DatabaseError> dataErrorCallback) {
         DatabaseReference matchesRef = mDatabase.child("matches");

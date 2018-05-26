@@ -128,6 +128,10 @@ public class MainActivityTest {
         onView(withText(containsString("Cool Guy Mike")))
                 .inRoot(withDecorView(not(testRule.getActivity().getWindow().getDecorView())))
                 .check(matches(isDisplayed()));
+
+        onView(withId(R.id.my_recycler_view)).perform(
+                RecyclerViewActions
+                        .actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id.like_button)));
         try {
             Thread.sleep(1500);
         } catch (InterruptedException e) {

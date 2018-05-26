@@ -42,10 +42,10 @@ public class MatchesDiffCallback extends DiffUtil.Callback {
         return oldMatch.name.equals(newMatch.name);
     }
 
-    @Nullable
+    /*@Nullable
     @Override
     public Object getChangePayload(int oldItemPosition, int newItemPosition) {
         // Implement method if you're going to use ItemAnimator
         return super.getChangePayload(oldItemPosition, newItemPosition);
-    }
+    }*/
 }
