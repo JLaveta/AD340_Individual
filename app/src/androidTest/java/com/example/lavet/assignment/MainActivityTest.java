@@ -10,9 +10,10 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.TimePicker;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.example.lavet.assignment.models.Matches;
+import com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar;
 
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
@@ -21,18 +22,28 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import java.util.Calendar;
 
+import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.action.ViewActions.swipeLeft;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isChecked;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
+import static android.support.test.espresso.matcher.ViewMatchers.isNotChecked;
 import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withSpinnerText;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.anything;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.not;
+import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
 
 
 @RunWith(AndroidJUnit4.class)
@@ -114,14 +125,36 @@ public class MainActivityTest {
                 RecyclerViewActions
                         .actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id.like_button)));
 
-        /*onView(withText("You liked Cool Guy Mike."))
+        onView(withText(containsString("Cool Guy Mike")))
                 .inRoot(withDecorView(not(testRule.getActivity().getWindow().getDecorView())))
-                .check(matches(isDisplayed()));*/
+                .check(matches(isDisplayed()));
 
         //Check Settings Tab
         onView(withId(R.id.viewpager)).perform(swipeLeft());
-        onView(withId(R.id.settingText))
-                .check(matches(withText(R.string.settingPlaceHolder)));
+        //Set a reminder time
+        onView(withClassName(Matchers.equalTo(TimePicker.class.getName())))
+                .perform(PickerActions.setTime(07, 22));
+        //Set a distance
+        onView(withId(R.id.maxDistance)).perform(click());
+        onData(anything()).atPosition(2).perform(click());
+        onView(withId(R.id.maxDistance)).check(matches(withSpinnerText(containsString("20 Miles"))));
+        //Set a gender
+        onView(withId(R.id.gender)).perform(click());
+        onData(anything()).atPosition(4).perform(click());
+        onView(withId(R.id.gender)).check(matches(withSpinnerText(containsString("Nonconforming"))));
+        //Set Privacy
+        onView(withId(R.id.publicButton)).perform(click());
+        onView(withId(R.id.publicButton)).check(matches(isChecked()));
+        onView(withId(R.id.privateButton)).check(matches(isNotChecked()));
+        //Set age range
+
+        //Submit settings
+        onView(withId(R.id.submitButton)).perform(click());
+        onView(withText("Settings Saved!"))
+                .inRoot(withDecorView(not(testRule.getActivity().getWindow().getDecorView())))
+                .check(matches(isDisplayed()));
+
+
 
         //Test back button functionality
         Espresso.pressBack();

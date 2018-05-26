@@ -48,4 +48,5 @@
     <string name="ageTitle">Set Age Range</string>
     <string name="genderTitle">Set Gender</string>
     <string name="privacyTitle">Set Privacy</string>
+    <string name="current_range">Current age range: %1$d - %2$d years old.</string>
 </resources>

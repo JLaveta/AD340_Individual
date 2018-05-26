@@ -1,22 +1,16 @@
 package com.example.lavet.assignment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.service.autofill.CharSequenceTransformation;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -39,6 +33,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     public RadioGroup privacySet;
     public RangeSeekBar ageSeekBar;
     public Button submitButton;
+    public TextView rangeText;
     public View setView;
     public ArrayAdapter distAdapter;
     public ArrayAdapter genAdapter;
@@ -50,6 +45,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
 
         setView = inflater.inflate(R.layout.activity_settings_fragment, null);
+        rangeText = setView.findViewById(R.id.rangeText);
         submitButton = setView.findViewById(R.id.submitButton);
 
         //Setup age range seekbar
@@ -57,9 +53,8 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
         ageSeekBar.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener<Integer>() {
             @Override
             public void onRangeSeekBarValuesChanged(RangeSeekBar<?> bar, Integer minValue, Integer maxValue) {
-                Toast.makeText(getContext(), minValue + "-" + maxValue, Toast.LENGTH_LONG).show();
+                rangeText.setText(getContext().getString(R.string.current_range, minValue, maxValue));
             }
-
         });
         ageSeekBar.setNotifyWhileDragging(true);
 
@@ -83,19 +78,6 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
         //Setup Privacy Radio buttons
         privacySet = setView.findViewById(R.id.privacyGroup);
-        privacySet.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch(checkedId){
-                    case R.id.privateButton:
-                        //Stuff
-                        break;
-                    case R.id.publicButton:
-                        //Other stuff
-                        break;
-                }
-            }
-        });
 
         submitButton.setOnClickListener(this);
 
@@ -170,13 +152,11 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
             } else{
                 privacySet.check(R.id.publicButton);
             }
-            ageSeekBar.setSelectedMinValue(settings.getMinAge());
-            ageSeekBar.setSelectedMaxValue(settings.getMaxAge());
-            //reminderTime.setText(settings.getRemTime());
-            //userGender.setText(settings.getGender());
-            //privacySet.setText(settings.getPrivacy());
-            //minAge.setText(String.valueOf(settings.getMinAge()));
-            //maxAge.setText(String.valueOf(settings.getMaxAge()));
+            int minAge = settings.getMinAge();
+            int maxAge = settings.getMaxAge();
+            ageSeekBar.setSelectedMinValue(minAge);
+            ageSeekBar.setSelectedMaxValue(maxAge);
+            rangeText.setText(getContext().getString(R.string.current_range, minAge, maxAge));
         }
     }
 
@@ -220,14 +200,11 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
             } else{
                 privacySet.check(R.id.publicButton);
             }
-            ageSeekBar.setSelectedMinValue(settings.getMinAge());
-            ageSeekBar.setSelectedMaxValue(settings.getMaxAge());
-            //reminderTime.setText(settings.getRemTime());
-            //maxDistance.setText(String.valueOf(settings.getMiles()));
-            //userGender.setText(settings.getGender());
-            //privacySet.setText(settings.getPrivacy());
-            //minAge.setText(String.valueOf(settings.getMinAge()));
-            //maxAge.setText(String.valueOf(settings.getMaxAge()));
+            int minAge = settings.getMinAge();
+            int maxAge = settings.getMaxAge();
+            ageSeekBar.setSelectedMinValue(minAge);
+            ageSeekBar.setSelectedMaxValue(maxAge);
+            rangeText.setText(getContext().getString(R.string.current_range, minAge, maxAge));
         }
     }
 
