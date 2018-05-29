@@ -34,6 +34,7 @@
     <string name="matchesPlaceHolder">You\'ll find potential matches here!</string>
     <string name="liked" formatted="false">You liked %1$s.</string>
     <string name="unliked" formatted="false">You unliked %1$s.</string>
+    <string name="distanceText" formatted="false">Distance: %1$s miles</string>
 
     <!-- Setting Fragment String -->
     <string name="sign_in">Sign In</string>
@@ -49,4 +50,10 @@
     <string name="genderTitle">Set Gender</string>
     <string name="privacyTitle">Set Privacy</string>
     <string name="current_range">Current age range: %1$d - %2$d years old.</string>
+
+    <!-- Location Strings -->
+    <string name="enable_location">Enable Location</string>
+    <string name="location_message">Your location setting is \'Off\'. Please enable location to use this app.</string>
+    <string name="location_settings">Location Settings</string>
+    <string name="location_cancel">Cancel</string>
 </resources>
