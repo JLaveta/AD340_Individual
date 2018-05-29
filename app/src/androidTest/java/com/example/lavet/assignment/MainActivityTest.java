@@ -109,6 +109,11 @@ public class MainActivityTest {
 
         //Click the registration button and check second activity
         Espresso.closeSoftKeyboard();
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         onView(withId(R.id.registrationButton))
                 .perform(scrollTo()).perform(click());
         onView(withId(R.id.textViewNameAge))
@@ -156,7 +161,7 @@ public class MainActivityTest {
         onView(withId(R.id.publicButton)).check(matches(isChecked()));
         onView(withId(R.id.privateButton)).check(matches(isNotChecked()));
         //Set age range
-
+        //Todo figure out how to test this
         //Submit settings
         onView(withId(R.id.submitButton)).perform(scrollTo()).perform(click());
         onView(withText("Settings saved!"))

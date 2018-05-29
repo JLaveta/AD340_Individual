@@ -35,13 +35,13 @@ public class MainActivity extends AppCompatActivity {
     private TextView textViewBirth;
     private TextView textViewAge;
     private Button regButton;
-    private TextView userName;
-    private ImageView userPhoto;
+    /*private TextView userName;
+    private ImageView userPhoto;*/
     private DatePickerDialog.OnDateSetListener onDateSetListener;
 
     //Firebase instance variables
-    private FirebaseAuth mFirebaseAuth;
-    private FirebaseUser mFirebaseUser;
+    /*private FirebaseAuth mFirebaseAuth;
+    private FirebaseUser mFirebaseUser;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +54,12 @@ public class MainActivity extends AppCompatActivity {
         editTextDesc = findViewById(R.id.desc);
         editTextOccupation = findViewById(R.id.occupation);
         editTextName = findViewById(R.id.name);
-        userName = findViewById(R.id.userName);
-        userPhoto = findViewById(R.id.userPhoto);
 
         //Initializae Firebase Auth - commented out for now because testing has not been covered
-        /*mFirebaseAuth = FirebaseAuth.getInstance();
+        /*
+        userName = findViewById(R.id.userName);
+        userPhoto = findViewById(R.id.userPhoto);
+        mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         if(mFirebaseUser == null){
             //Not signed in, launch the sign in activity
