@@ -67,9 +67,7 @@ public class MatchesFragment extends Fragment {
             adapter.updateMatchesList(response);
         });
 
-        //Todo this location stuff is not yet working.... why?!
         locationManager = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
-
         getGPSUpdates();
 
         return recyclerView;
@@ -151,7 +149,7 @@ public class MatchesFragment extends Fragment {
                         Location.distanceBetween(latitudeGPS, longitudeGPS,
                                 Double.parseDouble(match.lat), Double.parseDouble(match.longitude), distanceToMatch);
 
-                        if(distanceToMatch[0]/1609.34 < 10){
+                        if(distanceToMatch[0]/1609.34 <= 10){
                             tempList.add(match);
                         }
                     }

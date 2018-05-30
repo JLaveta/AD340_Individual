@@ -186,6 +186,13 @@ public class MainActivityTest {
         onView(withId(R.id.desc))
                 .check(matches(withText("")));
 
+        //Go back to settings page to check data retention
+        checkAge(19);
+        onView(withId(R.id.registrationButton))
+                .perform(scrollTo()).perform(click());
+        onView(withId(R.id.viewpager)).perform(swipeLeft());
+        onView(withId(R.id.viewpager)).perform(swipeLeft());
+
     }
 
     public static void setDate(int datePickerLaunchViewId, int year, int monthOfYear, int dayOfMonth) {

@@ -142,7 +142,6 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
                 return;
             }
 
-            //Todo: Set all settings fields based on database
             reminderTime.setHour(settings.getRemTimeHour());
             reminderTime.setMinute(settings.getRemTimeMin());
             distanceSpinner.setSelection(distAdapter.getPosition(settings.getMiles()));
