@@ -91,9 +91,11 @@ public class MainActivityTest {
         onView(withId(R.id.desc)).perform(scrollTo()).perform(typeText(testDesc));
 
         //Test reg button status on different DOBs
-        checkAge(17);
-        checkAge(18);
-        checkAge(19);
+        Calendar cal = Calendar.getInstance();
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        checkAge(17, day+1);
+        checkAge(18, day);
+        checkAge(19, day-1);
 
         //Test that data retention during rotation
         testRule.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
@@ -126,7 +128,7 @@ public class MainActivityTest {
         //Check Matches Tab, Like Button, Toast
         onView(withId(R.id.viewpager)).perform(swipeLeft());
 
-        /*onView(withId(R.id.my_recycler_view)).perform(
+        onView(withId(R.id.my_recycler_view)).perform(
                 RecyclerViewActions
                         .actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id.like_button)));
 
@@ -142,7 +144,7 @@ public class MainActivityTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        */
+        
         //Check Settings Tab
         onView(withId(R.id.viewpager)).perform(swipeLeft());
         //Set a reminder time
@@ -160,6 +162,7 @@ public class MainActivityTest {
         onView(withId(R.id.publicButton)).perform(click());
         onView(withId(R.id.publicButton)).check(matches(isChecked()));
         onView(withId(R.id.privateButton)).check(matches(isNotChecked()));
+        onView(withId(R.id.privateButton)).perform(click());
         //Set age range
         //Todo figure out how to test this
         //Submit settings
@@ -167,6 +170,7 @@ public class MainActivityTest {
         onView(withText("Settings saved!"))
                 .inRoot(withDecorView(not(testRule.getActivity().getWindow().getDecorView())))
                 .check(matches(isDisplayed()));
+
 
 
 
@@ -187,7 +191,7 @@ public class MainActivityTest {
                 .check(matches(withText("")));
 
         //Go back to settings page to check data retention
-        checkAge(19);
+        checkAge(19, day);
         onView(withId(R.id.registrationButton))
                 .perform(scrollTo()).perform(click());
         onView(withId(R.id.viewpager)).perform(swipeLeft());
@@ -205,11 +209,11 @@ public class MainActivityTest {
 
     //Helper function that sets the calendar based on age and calls test on
     //whether the registration button is enabled.
-    public static void checkAge(int age){
+    public static void checkAge(int age, int dayOfMonth){
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR)-age;
         int monthOfYear = cal.get(Calendar.MONTH);
-        int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
+        //int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
 
         setDate(R.id.dob, year, monthOfYear, dayOfMonth);
 

@@ -8,6 +8,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.location.LocationListener;
 import android.os.Bundle;
+import android.os.Parcel;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -152,6 +153,11 @@ public class MatchesFragment extends Fragment {
                         if(distanceToMatch[0]/1609.34 <= 10){
                             tempList.add(match);
                         }
+                    }
+                    //Check if tempList is empty, add a blank match if it is
+                    if(tempList.size() == 0){
+                        Matches tempMatch = new Matches();
+                        tempList.add(tempMatch);
                     }
                     adapter.updateMatchesList(tempList);
                 });
