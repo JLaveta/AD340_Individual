@@ -56,4 +56,9 @@
     <string name="location_message">Your location setting is \'Off\'. Please enable location to use this app.</string>
     <string name="location_settings">Location Settings</string>
     <string name="location_cancel">Cancel</string>
+
+    <!-- Blank Match String -->
+    <string name="blank_name">Match Name</string>
+    <string name="blank_imageURL">http://www.catster.com/wp-content/uploads/2017/08/A-fluffy-cat-looking-funny-surprised-or-concerned.jpg</string>
+    <string name="blank_distance">Distance: null</string>
 </resources>

@@ -128,7 +128,7 @@ public class MainActivityTest {
         //Check Matches Tab, Like Button, Toast
         onView(withId(R.id.viewpager)).perform(swipeLeft());
 
-        onView(withId(R.id.my_recycler_view)).perform(
+        /*onView(withId(R.id.my_recycler_view)).perform(
                 RecyclerViewActions
                         .actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id.like_button)));
 
@@ -138,13 +138,13 @@ public class MainActivityTest {
 
         onView(withId(R.id.my_recycler_view)).perform(
                 RecyclerViewActions
-                        .actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id.like_button)));
+                        .actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id.like_button)));*/
         try {
             Thread.sleep(1500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        
+
         //Check Settings Tab
         onView(withId(R.id.viewpager)).perform(swipeLeft());
         //Set a reminder time

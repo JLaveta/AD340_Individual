@@ -49,24 +49,35 @@ public class MatchesViewAdapter extends RecyclerView.Adapter<MatchesViewAdapter.
         @Override
         public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
             holder.mMatch = mMatchesList.get(position);
-            Picasso.get().load(holder.mMatch.imageUrl).into(holder.picture);
-            holder.name.setText(holder.mMatch.name);
+            try{
+                Picasso.get().load(holder.mMatch.imageUrl).into(holder.picture);
+                holder.name.setText(holder.mMatch.name);
 
-            //Calculates distance to match and sets text
-            float [] distanceToMatch = new float[1];
-            Location.distanceBetween(startLat, startLong,
-                    Double.parseDouble(holder.mMatch.lat), Double.parseDouble(holder.mMatch.longitude),
-                    distanceToMatch);
-            holder.matchDist.setText(
-                    holder.matchDist.getContext()
-                            .getString(R.string.distanceText,
-                                    String.format("%.01f", distanceToMatch[0]/1609.34)));
+                //Calculates distance to match and sets text
+                float [] distanceToMatch = new float[1];
 
-            //Checks "liked" state in database and sets heart icon appropriately
-            if (!holder.mMatch.liked) {
-                holder.likeButton.getDrawable().setTint(getColor(view.getContext(), R.color.button_grey));
-            } else if (holder.mMatch.liked) {
-                holder.likeButton.getDrawable().setTint(getColor(view.getContext(), R.color.red));
+                    Location.distanceBetween(startLat, startLong,
+                            Double.parseDouble(holder.mMatch.lat), Double.parseDouble(holder.mMatch.longitude),
+                            distanceToMatch);
+                    holder.matchDist.setText(
+                            holder.matchDist.getContext()
+                                    .getString(R.string.distanceText,
+                                            String.format("%.01f", distanceToMatch[0] / 1609.34)));
+
+                //Checks "liked" state in database and sets heart icon appropriately
+                if (!holder.mMatch.liked) {
+                    holder.likeButton.getDrawable().setTint(getColor(view.getContext(), R.color.button_grey));
+                } else {
+                    holder.likeButton.getDrawable().setTint(getColor(view.getContext(), R.color.red));
+                }
+            }catch (Exception e){
+                Picasso.get().load(holder.picture.getContext()
+                        .getString(R.string.blank_imageURL))
+                        .into(holder.picture);
+                holder.name.setText(holder.name.getContext()
+                        .getString(R.string.blank_name));
+                holder.matchDist.setText(holder.matchDist.getContext()
+                        .getString(R.string.blank_distance));
             }
         }
 

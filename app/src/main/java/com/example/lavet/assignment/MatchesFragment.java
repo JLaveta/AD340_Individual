@@ -141,7 +141,6 @@ public class MatchesFragment extends Fragment {
             adapter.setLatLong(latitudeGPS, longitudeGPS);
 
             getActivity().runOnUiThread(()-> {
-                //Todo: fix this
                 viewModel.getMatches((response) -> {
                     float [] distanceToMatch = new float[1];
                     ArrayList<Matches> tempList = new ArrayList<>();
