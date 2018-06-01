@@ -7,7 +7,7 @@
     <string name="menu_item3">Register</string>
 
     <!-- Main activity -->
-    <string name="greeting">Laveta, John 5/29/2018</string>
+    <string name="greeting">Laveta, John 5/31/2018</string>
     <string name="about_john">John is currently a field service engineer for a proton therapy
     center in Seattle, WA. He is studying Application Development at North Seattle College.</string>
     <string name="imgContent">Image of Me</string>
@@ -45,7 +45,7 @@
     <string name="setTitle">Settings</string>
     <string name="settingPlaceHolder">Match Settings</string>
     <string name="timeTitle">Set Reminder Time</string>
-    <string name="distTitle">Set Search Distance</string>
+    <string name="distTitle">Set Search Distance in Miles</string>
     <string name="ageTitle">Set Age Range</string>
     <string name="genderTitle">Set Gender</string>
     <string name="privacyTitle">Set Privacy</string>

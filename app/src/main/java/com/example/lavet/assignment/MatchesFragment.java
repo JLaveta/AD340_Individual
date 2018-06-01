@@ -7,8 +7,8 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.location.LocationListener;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Parcel;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -20,8 +20,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.lavet.assignment.models.Matches;
+import com.example.lavet.assignment.entity.SettingsEntity;
 import com.example.lavet.assignment.viewmodels.FirebaseViewModel;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +42,8 @@ public class MatchesFragment extends Fragment {
     private LocationManager locationManager;
     public double longitudeGPS, latitudeGPS;
     public RecyclerView recyclerView;
+    private SettingsEntity settings = new SettingsEntity();
+    public int searchRadius;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -139,28 +143,7 @@ public class MatchesFragment extends Fragment {
             longitudeGPS = location.getLongitude();
             latitudeGPS = location.getLatitude();
             adapter.setLatLong(latitudeGPS, longitudeGPS);
-
-            getActivity().runOnUiThread(()-> {
-                viewModel.getMatches((response) -> {
-                    float [] distanceToMatch = new float[1];
-                    ArrayList<Matches> tempList = new ArrayList<>();
-                    for(Matches match:response){
-
-                        Location.distanceBetween(latitudeGPS, longitudeGPS,
-                                Double.parseDouble(match.lat), Double.parseDouble(match.longitude), distanceToMatch);
-
-                        if(distanceToMatch[0]/1609.34 <= 10){
-                            tempList.add(match);
-                        }
-                    }
-                    //Check if tempList is empty, add a blank match if it is
-                    if(tempList.size() == 0){
-                        Matches tempMatch = new Matches();
-                        tempList.add(tempMatch);
-                    }
-                    adapter.updateMatchesList(tempList);
-                });
-            });
+            updateList();
         }
 
         @Override
@@ -183,5 +166,29 @@ public class MatchesFragment extends Fragment {
 
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 6 * 1000, 10, locationListenerGPS);
         }
+    }
+
+    public void getRange(int matchRange){
+        searchRadius = matchRange;
+        updateList();
+    }
+
+    public void updateList(){
+        getActivity().runOnUiThread(()-> {
+            viewModel.getMatches((response) -> {
+                float [] distanceToMatch = new float[1];
+                ArrayList<Matches> tempList = new ArrayList<>();
+                for(Matches match:response){
+
+                    Location.distanceBetween(latitudeGPS, longitudeGPS,
+                            Double.parseDouble(match.lat), Double.parseDouble(match.longitude), distanceToMatch);
+
+                    if(distanceToMatch[0]/1609.34 <= searchRadius){
+                        tempList.add(match);
+                    }
+                }
+                adapter.updateMatchesList(tempList);
+            });
+        });
     }
 }

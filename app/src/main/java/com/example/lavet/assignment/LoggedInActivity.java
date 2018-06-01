@@ -19,7 +19,7 @@ import com.example.lavet.assignment.viewmodels.FirebaseViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoggedInActivity extends AppCompatActivity implements MatchesFragment.OnListFragmentInteractionListener {
+public class LoggedInActivity extends AppCompatActivity implements MatchesFragment.OnListFragmentInteractionListener, SettingsFragment.SendData {
 
     private FirebaseViewModel viewModel;
 
@@ -36,6 +36,14 @@ public class LoggedInActivity extends AppCompatActivity implements MatchesFragme
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 
+    }
+
+    @Override
+    public void sendRange(int matchRange){
+        String tag = "android:switcher:" + R.id.viewpager + ":" + 1;
+        MatchesFragment matches = (MatchesFragment)
+                getSupportFragmentManager().findFragmentByTag(tag);
+        matches.getRange(matchRange);
     }
 
     //Add fragments to tabs

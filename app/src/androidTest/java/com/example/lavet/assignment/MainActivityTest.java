@@ -27,6 +27,7 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.action.ViewActions.swipeLeft;
+import static android.support.test.espresso.action.ViewActions.swipeRight;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isChecked;
@@ -125,20 +126,6 @@ public class MainActivityTest {
         onView(withId(R.id.textViewDesc))
                 .check(matches(withText(testDesc)));
 
-        //Check Matches Tab, Like Button, Toast
-        onView(withId(R.id.viewpager)).perform(swipeLeft());
-
-        /*onView(withId(R.id.my_recycler_view)).perform(
-                RecyclerViewActions
-                        .actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id.like_button)));
-
-        onView(withText(containsString("Cool Guy Mike")))
-                .inRoot(withDecorView(not(testRule.getActivity().getWindow().getDecorView())))
-                .check(matches(isDisplayed()));
-
-        onView(withId(R.id.my_recycler_view)).perform(
-                RecyclerViewActions
-                        .actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id.like_button)));*/
         try {
             Thread.sleep(1500);
         } catch (InterruptedException e) {
@@ -147,13 +134,14 @@ public class MainActivityTest {
 
         //Check Settings Tab
         onView(withId(R.id.viewpager)).perform(swipeLeft());
+        onView(withId(R.id.viewpager)).perform(swipeLeft());
         //Set a reminder time
         onView(withClassName(Matchers.equalTo(TimePicker.class.getName())))
                 .perform(PickerActions.setTime(07, 22));
         //Set a distance
         onView(withId(R.id.maxDistance)).perform(click());
-        onData(anything()).atPosition(2).perform(click());
-        onView(withId(R.id.maxDistance)).check(matches(withSpinnerText(containsString("20 Miles"))));
+        onData(anything()).atPosition(4).perform(click());
+        onView(withId(R.id.maxDistance)).check(matches(withSpinnerText(containsString("12500"))));
         //Set a gender
         onView(withId(R.id.gender)).perform(click());
         onData(anything()).atPosition(4).perform(click());
@@ -171,7 +159,20 @@ public class MainActivityTest {
                 .inRoot(withDecorView(not(testRule.getActivity().getWindow().getDecorView())))
                 .check(matches(isDisplayed()));
 
+        //Check Matches Tab, Like Button, Toast
+        onView(withId(R.id.viewpager)).perform(swipeRight());
 
+        onView(withId(R.id.my_recycler_view)).perform(
+                RecyclerViewActions
+                        .actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id.like_button)));
+
+        onView(withText(containsString("Cool Guy Mike")))
+                .inRoot(withDecorView(not(testRule.getActivity().getWindow().getDecorView())))
+                .check(matches(isDisplayed()));
+
+        onView(withId(R.id.my_recycler_view)).perform(
+                RecyclerViewActions
+                        .actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id.like_button)));
 
 
         //Test back button functionality

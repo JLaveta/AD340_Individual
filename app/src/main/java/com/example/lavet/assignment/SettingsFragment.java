@@ -16,11 +16,12 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.example.lavet.assignment.entity.Settings;
+import com.example.lavet.assignment.entity.SettingsEntity;
 import com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Provides UI for the view with List.
@@ -37,7 +38,8 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     public View setView;
     public ArrayAdapter distAdapter;
     public ArrayAdapter genAdapter;
-    Settings settings = new Settings();
+    SettingsEntity settings = new SettingsEntity();
+    SendData sender;
 
 
     @Override
@@ -93,7 +95,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
         settings.setRemTimeMin(reminderTime.getMinute());
         settings.setMaxAge((Integer) ageSeekBar.getSelectedMaxValue());
         settings.setMinAge((Integer) ageSeekBar.getSelectedMinValue());
-        settings.setMiles(distanceSpinner.getSelectedItem().toString());
+        settings.setMiles(Integer.parseInt(distanceSpinner.getSelectedItem().toString()));
         settings.setPrivacy(setView.findViewById(privacySet.getCheckedRadioButtonId()).toString());
         settings.setGender(userGender.getSelectedItem().toString());
 
@@ -108,18 +110,33 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
         new UpdateSettingsTask(this, settings).execute();
     }
 
-    private class GetSettingsTask extends AsyncTask<Void, Void, Settings> {
+    interface SendData {
+        void sendRange(int matchRange);
+    }
+
+    @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+
+        try{
+            sender = (SendData) getActivity();
+        } catch (ClassCastException e){
+            throw new ClassCastException("Error getting data, try again.");
+        }
+    }
+
+    public class GetSettingsTask extends AsyncTask<Void, Void, SettingsEntity> {
 
         private WeakReference<Fragment> weakFragment;
-        private Settings settings;
+        private SettingsEntity settings;
 
-        public GetSettingsTask(Fragment fragment, Settings settings) {
+        public GetSettingsTask(Fragment fragment, SettingsEntity settings) {
             weakFragment = new WeakReference<>(fragment);
             this.settings = settings;
         }
 
         @Override
-        protected Settings doInBackground(Void... voids) {
+        protected SettingsEntity doInBackground(Void... voids) {
             Fragment fragment = weakFragment.get();
             if(fragment == null) {
                 return null;
@@ -127,7 +144,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
             AppDatabase db = AppDatabase.getDatabase(fragment.getActivity().getApplicationContext());
 
-            List<Settings> settings = db.settingsDao().getAll();
+            List<SettingsEntity> settings = db.settingsDao().getAll();
 
             if(settings.size() <= 0 || settings.get(0) == null) {
                 return null;
@@ -136,7 +153,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
         }
 
         @Override
-        protected void onPostExecute(Settings settings) {
+        protected void onPostExecute(SettingsEntity settings) {
             Fragment fragment = weakFragment.get();
             if(settings == null || fragment == null) {
                 return;
@@ -144,7 +161,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
             reminderTime.setHour(settings.getRemTimeHour());
             reminderTime.setMinute(settings.getRemTimeMin());
-            distanceSpinner.setSelection(distAdapter.getPosition(settings.getMiles()));
+            distanceSpinner.setSelection(distAdapter.getPosition(Integer.toString(settings.getMiles())));
             userGender.setSelection(genAdapter.getPosition(settings.getGender()));
             if(settings.getPrivacy().equals(getString(R.string.privateButton))){
                 privacySet.check(R.id.privateButton);
@@ -156,21 +173,24 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
             ageSeekBar.setSelectedMinValue(minAge);
             ageSeekBar.setSelectedMaxValue(maxAge);
             rangeText.setText(getContext().getString(R.string.current_range, minAge, maxAge));
+
+            //Send to other fragment
+            sender.sendRange(settings.getMiles());
         }
     }
 
-    private class UpdateSettingsTask extends AsyncTask<Void, Void, Settings> {
+    private class UpdateSettingsTask extends AsyncTask<Void, Void, SettingsEntity> {
 
         private WeakReference<Fragment> weakFragment;
-        private Settings settings;
+        private SettingsEntity settings;
 
-        public UpdateSettingsTask(Fragment fragment, Settings settings) {
+        public UpdateSettingsTask(Fragment fragment, SettingsEntity settings) {
             weakFragment = new WeakReference<>(fragment);
             this.settings = settings;
         }
 
         @Override
-        protected Settings doInBackground(Void... voids) {
+        protected SettingsEntity doInBackground(Void... voids) {
             Fragment fragment = weakFragment.get();
             if(fragment == null) {
                 return null;
@@ -183,7 +203,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
         }
 
         @Override
-        protected void onPostExecute(Settings settings) {
+        protected void onPostExecute(SettingsEntity settings) {
             Fragment fragment = weakFragment.get();
             if(settings == null || fragment == null) {
                 return;
@@ -192,7 +212,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
             //Todo: Set all fields based on values in database
             reminderTime.setHour(settings.getRemTimeHour());
             reminderTime.setMinute(settings.getRemTimeMin());
-            distanceSpinner.setSelection(distAdapter.getPosition(settings.getMiles()));
+            distanceSpinner.setSelection(distAdapter.getPosition(Integer.toString(settings.getMiles())));
             userGender.setSelection(genAdapter.getPosition(settings.getGender()));
             if(settings.getPrivacy().equals(getString(R.string.privateButton))){
                 privacySet.check(R.id.privateButton);
@@ -204,6 +224,9 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
             ageSeekBar.setSelectedMinValue(minAge);
             ageSeekBar.setSelectedMaxValue(maxAge);
             rangeText.setText(getContext().getString(R.string.current_range, minAge, maxAge));
+
+            //Send to other fragment
+            sender.sendRange(settings.getMiles());
         }
     }
 
