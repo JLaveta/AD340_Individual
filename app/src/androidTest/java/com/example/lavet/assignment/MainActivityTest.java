@@ -27,6 +27,7 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.action.ViewActions.swipeLeft;
+import static android.support.test.espresso.action.ViewActions.swipeRight;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isChecked;
@@ -91,9 +92,11 @@ public class MainActivityTest {
         onView(withId(R.id.desc)).perform(scrollTo()).perform(typeText(testDesc));
 
         //Test reg button status on different DOBs
-        checkAge(17);
-        checkAge(18);
-        checkAge(19);
+        Calendar cal = Calendar.getInstance();
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        checkAge(17, day+1);
+        checkAge(18, day);
+        checkAge(19, day-1);
 
         //Test that data retention during rotation
         testRule.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
@@ -109,6 +112,11 @@ public class MainActivityTest {
 
         //Click the registration button and check second activity
         Espresso.closeSoftKeyboard();
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         onView(withId(R.id.registrationButton))
                 .perform(scrollTo()).perform(click());
         onView(withId(R.id.textViewNameAge))
@@ -118,8 +126,41 @@ public class MainActivityTest {
         onView(withId(R.id.textViewDesc))
                 .check(matches(withText(testDesc)));
 
-        //Check Matches Tab, Like Button, Toast
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        //Check Settings Tab
         onView(withId(R.id.viewpager)).perform(swipeLeft());
+        onView(withId(R.id.viewpager)).perform(swipeLeft());
+        //Set a reminder time
+        onView(withClassName(Matchers.equalTo(TimePicker.class.getName())))
+                .perform(PickerActions.setTime(07, 22));
+        //Set a distance
+        onView(withId(R.id.maxDistance)).perform(click());
+        onData(anything()).atPosition(4).perform(click());
+        onView(withId(R.id.maxDistance)).check(matches(withSpinnerText(containsString("12500"))));
+        //Set a gender
+        onView(withId(R.id.gender)).perform(click());
+        onData(anything()).atPosition(4).perform(click());
+        onView(withId(R.id.gender)).check(matches(withSpinnerText(containsString("Nonconforming"))));
+        //Set Privacy
+        onView(withId(R.id.publicButton)).perform(click());
+        onView(withId(R.id.publicButton)).check(matches(isChecked()));
+        onView(withId(R.id.privateButton)).check(matches(isNotChecked()));
+        onView(withId(R.id.privateButton)).perform(click());
+        //Set age range
+        //Todo figure out how to test this
+        //Submit settings
+        onView(withId(R.id.submitButton)).perform(scrollTo()).perform(click());
+        onView(withText("Settings saved!"))
+                .inRoot(withDecorView(not(testRule.getActivity().getWindow().getDecorView())))
+                .check(matches(isDisplayed()));
+
+        //Check Matches Tab, Like Button, Toast
+        onView(withId(R.id.viewpager)).perform(swipeRight());
 
         onView(withId(R.id.my_recycler_view)).perform(
                 RecyclerViewActions
@@ -132,37 +173,6 @@ public class MainActivityTest {
         onView(withId(R.id.my_recycler_view)).perform(
                 RecyclerViewActions
                         .actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id.like_button)));
-        try {
-            Thread.sleep(1500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        //Check Settings Tab
-        onView(withId(R.id.viewpager)).perform(swipeLeft());
-        //Set a reminder time
-        onView(withClassName(Matchers.equalTo(TimePicker.class.getName())))
-                .perform(PickerActions.setTime(07, 22));
-        //Set a distance
-        onView(withId(R.id.maxDistance)).perform(click());
-        onData(anything()).atPosition(2).perform(click());
-        onView(withId(R.id.maxDistance)).check(matches(withSpinnerText(containsString("20 Miles"))));
-        //Set a gender
-        onView(withId(R.id.gender)).perform(click());
-        onData(anything()).atPosition(4).perform(click());
-        onView(withId(R.id.gender)).check(matches(withSpinnerText(containsString("Nonconforming"))));
-        //Set Privacy
-        onView(withId(R.id.publicButton)).perform(click());
-        onView(withId(R.id.publicButton)).check(matches(isChecked()));
-        onView(withId(R.id.privateButton)).check(matches(isNotChecked()));
-        //Set age range
-
-        //Submit settings
-        onView(withId(R.id.submitButton)).perform(scrollTo()).perform(click());
-        onView(withText("Settings saved!"))
-                .inRoot(withDecorView(not(testRule.getActivity().getWindow().getDecorView())))
-                .check(matches(isDisplayed()));
-
 
 
         //Test back button functionality
@@ -181,6 +191,13 @@ public class MainActivityTest {
         onView(withId(R.id.desc))
                 .check(matches(withText("")));
 
+        //Go back to settings page to check data retention
+        checkAge(19, day);
+        onView(withId(R.id.registrationButton))
+                .perform(scrollTo()).perform(click());
+        onView(withId(R.id.viewpager)).perform(swipeLeft());
+        onView(withId(R.id.viewpager)).perform(swipeLeft());
+
     }
 
     public static void setDate(int datePickerLaunchViewId, int year, int monthOfYear, int dayOfMonth) {
@@ -193,11 +210,11 @@ public class MainActivityTest {
 
     //Helper function that sets the calendar based on age and calls test on
     //whether the registration button is enabled.
-    public static void checkAge(int age){
+    public static void checkAge(int age, int dayOfMonth){
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR)-age;
         int monthOfYear = cal.get(Calendar.MONTH);
-        int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
+        //int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
 
         setDate(R.id.dob, year, monthOfYear, dayOfMonth);
 

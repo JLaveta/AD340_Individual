@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="search_ranges">
-        <item>1 Mile</item>
-        <item>5 Miles</item>
-        <item>20 Miles</item>
-        <item>50 Miles</item>
-        <item>100 Miles</item>
+        <item>1</item>
+        <item>5</item>
+        <item>20</item>
+        <item>50</item>
+        <item>12500</item>
     </string-array>
     <string-array name="gender_options">
         <item>Female</item>

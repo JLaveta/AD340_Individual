@@ -6,9 +6,9 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
 import com.example.lavet.assignment.dao.SettingsDao;
-import com.example.lavet.assignment.entity.Settings;
+import com.example.lavet.assignment.entity.SettingsEntity;
 
-@Database(entities = {Settings.class}, version = 1)
+@Database(entities = {SettingsEntity.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract SettingsDao settingsDao();

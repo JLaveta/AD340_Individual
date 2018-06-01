@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Assignment 6</string>
+    <string name="app_name">Assignment 8</string>
 
     <!-- Menu Items -->
     <string name="menu_item1">Home</string>
@@ -7,7 +7,7 @@
     <string name="menu_item3">Register</string>
 
     <!-- Main activity -->
-    <string name="greeting">Laveta, John 5/20/2018</string>
+    <string name="greeting">Laveta, John 5/31/2018</string>
     <string name="about_john">John is currently a field service engineer for a proton therapy
     center in Seattle, WA. He is studying Application Development at North Seattle College.</string>
     <string name="imgContent">Image of Me</string>
@@ -34,6 +34,7 @@
     <string name="matchesPlaceHolder">You\'ll find potential matches here!</string>
     <string name="liked" formatted="false">You liked %1$s.</string>
     <string name="unliked" formatted="false">You unliked %1$s.</string>
+    <string name="distanceText" formatted="false">Distance: %1$s miles</string>
 
     <!-- Setting Fragment String -->
     <string name="sign_in">Sign In</string>
@@ -44,9 +45,20 @@
     <string name="setTitle">Settings</string>
     <string name="settingPlaceHolder">Match Settings</string>
     <string name="timeTitle">Set Reminder Time</string>
-    <string name="distTitle">Set Search Distance</string>
+    <string name="distTitle">Set Search Distance in Miles</string>
     <string name="ageTitle">Set Age Range</string>
     <string name="genderTitle">Set Gender</string>
     <string name="privacyTitle">Set Privacy</string>
     <string name="current_range">Current age range: %1$d - %2$d years old.</string>
+
+    <!-- Location Strings -->
+    <string name="enable_location">Enable Location</string>
+    <string name="location_message">Your location setting is \'Off\'. Please enable location to use this app.</string>
+    <string name="location_settings">Location Settings</string>
+    <string name="location_cancel">Cancel</string>
+
+    <!-- Blank Match String -->
+    <string name="blank_name">Match Name</string>
+    <string name="blank_imageURL">http://www.catster.com/wp-content/uploads/2017/08/A-fluffy-cat-looking-funny-surprised-or-concerned.jpg</string>
+    <string name="blank_distance">Distance: null</string>
 </resources>

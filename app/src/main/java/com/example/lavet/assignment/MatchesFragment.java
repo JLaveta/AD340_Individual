@@ -1,8 +1,17 @@
 package com.example.lavet.assignment;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
+import android.location.LocationListener;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,8 +20,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.lavet.assignment.models.Matches;
+import com.example.lavet.assignment.entity.SettingsEntity;
 import com.example.lavet.assignment.viewmodels.FirebaseViewModel;
 
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -27,6 +39,11 @@ public class MatchesFragment extends Fragment {
     private MatchesViewAdapter adapter;
     public static final String ARG_DATA_SET = "data-set";
     private OnListFragmentInteractionListener mListener;
+    private LocationManager locationManager;
+    public double longitudeGPS, latitudeGPS;
+    public RecyclerView recyclerView;
+    private SettingsEntity settings = new SettingsEntity();
+    public int searchRadius;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,7 +59,7 @@ public class MatchesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.recycler_view, container, false);
+        recyclerView = (RecyclerView) inflater.inflate(R.layout.recycler_view, container, false);
 
         viewModel = new FirebaseViewModel();
 
@@ -54,6 +71,9 @@ public class MatchesFragment extends Fragment {
         viewModel.getMatches((response) -> {
             adapter.updateMatchesList(response);
         });
+
+        locationManager = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
+        getGPSUpdates();
 
         return recyclerView;
     }
@@ -72,6 +92,7 @@ public class MatchesFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+        locationManager.removeUpdates((locationListenerGPS));
         mListener = null;
     }
 
@@ -87,5 +108,87 @@ public class MatchesFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         void onListFragmentInteraction(Matches match);
+    }
+
+    //Location Methods
+
+    //Returns whether location is enable
+    private boolean isLocationEnabled(){
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+    }
+
+    //Checks whether location service is enable on phone or not
+    private boolean checkLocation() {
+        if(!isLocationEnabled()) {
+            showAlert();
+        }
+        return isLocationEnabled();
+    }
+
+    //If location is not enabled, brings up a dialog to enable it
+    private void showAlert(){
+        final AlertDialog.Builder dialog = new AlertDialog.Builder(this.getActivity());
+        dialog.setTitle(R.string.enable_location)
+                .setMessage(getString(R.string.location_message))
+                .setPositiveButton(R.string.location_settings, (paramDialogInterface, paramInt)->{
+                    Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    startActivity(myIntent);
+                })
+                .setNegativeButton(R.string.location_cancel, (paramDialogInterface, paramInt)-> {});
+        dialog.show();
+    }
+
+    private final LocationListener locationListenerGPS = new LocationListener() {
+        public void onLocationChanged(Location location) {
+            longitudeGPS = location.getLongitude();
+            latitudeGPS = location.getLatitude();
+            adapter.setLatLong(latitudeGPS, longitudeGPS);
+            updateList();
+        }
+
+        @Override
+        public void onStatusChanged(String s, int i, Bundle bundle) {}
+
+        @Override
+        public void onProviderEnabled(String s) {}
+
+        @Override
+        public void onProviderDisabled(String s) {}
+    };
+
+    public void getGPSUpdates() {
+        if(!checkLocation()) {
+            return;
+        }
+
+        if (ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
+                ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 6 * 1000, 10, locationListenerGPS);
+        }
+    }
+
+    public void getRange(int matchRange){
+        searchRadius = matchRange;
+        updateList();
+    }
+
+    public void updateList(){
+        getActivity().runOnUiThread(()-> {
+            viewModel.getMatches((response) -> {
+                float [] distanceToMatch = new float[1];
+                ArrayList<Matches> tempList = new ArrayList<>();
+                for(Matches match:response){
+
+                    Location.distanceBetween(latitudeGPS, longitudeGPS,
+                            Double.parseDouble(match.lat), Double.parseDouble(match.longitude), distanceToMatch);
+
+                    if(distanceToMatch[0]/1609.34 <= searchRadius){
+                        tempList.add(match);
+                    }
+                }
+                adapter.updateMatchesList(tempList);
+            });
+        });
     }
 }
