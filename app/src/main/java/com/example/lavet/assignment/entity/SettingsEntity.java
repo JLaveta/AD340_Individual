@@ -5,7 +5,7 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
 @Entity
-public class Settings {
+public class SettingsEntity {
 
     @PrimaryKey
     private int sid;
@@ -17,7 +17,7 @@ public class Settings {
     private int remTimeMin;
 
     @ColumnInfo(name="search_distance")
-    private String miles;
+    private int miles;
 
     @ColumnInfo(name="gender")
     private String gender;
@@ -55,11 +55,11 @@ public class Settings {
         this.remTimeMin = remTimeMin;
     }
 
-    public String getMiles() {
+    public int getMiles() {
         return miles;
     }
 
-    public void setMiles(String miles) {
+    public void setMiles(int miles) {
         this.miles = miles;
     }
 
