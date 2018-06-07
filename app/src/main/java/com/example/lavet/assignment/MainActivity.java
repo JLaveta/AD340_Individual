@@ -3,10 +3,12 @@ package com.example.lavet.assignment;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -49,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         editTextUser = findViewById(R.id.username);
         textViewBirth = findViewById(R.id.dob);
-        textViewAge = findViewById(R.id.age);
         regButton = findViewById(R.id.registrationButton);
         editTextDesc = findViewById(R.id.desc);
         editTextOccupation = findViewById(R.id.occupation);
@@ -114,12 +115,16 @@ public class MainActivity extends AppCompatActivity {
                 //Users under 18 cannot register
                 String ageStr = getString(R.string.age) + ageS;
                 if (ageInt >= 18) {
-                    textViewAge.setText(ageStr);
+                    textViewBirth.setText(ageStr);
                     regButton.setText(getString(R.string.register));
+                    regButton.setBackground(getDrawable(R.drawable.button_active));
+                    regButton.setTypeface(null, Typeface.BOLD);
                     regButton.setEnabled(true);
                 } else if (ageInt < 18) {
-                    textViewAge.setText(ageStr);
+                    textViewBirth.setText(ageStr);
                     regButton.setText(getString(R.string.young));
+                    regButton.setBackgroundColor(getColor(R.color.common_google_signin_btn_text_light_disabled));
+                    regButton.setTypeface(null, Typeface.ITALIC);
                     regButton.setEnabled(false);
                 }
             }
