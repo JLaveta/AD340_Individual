@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText editTextDesc;
     private EditText editTextOccupation;
     private TextView textViewBirth;
-    private TextView textViewAge;
+    //private TextView textViewAge;
     private Button regButton;
     /*private TextView userName;
     private ImageView userPhoto;*/
@@ -97,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 //Print out date of birth in placeholder
                 String date = month + 1 + "/" + dayOfMonth + "/" + year;
-                textViewBirth.setText(date);
 
                 //Calculate user's age based on input DOB
                 Calendar dob = Calendar.getInstance();
@@ -144,14 +143,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
 
-        if (savedInstanceState.containsKey(Constants.KEY_DOB)) {
-            textViewBirth.setText((String)savedInstanceState.get(Constants.KEY_DOB));
-        }
-
         if (savedInstanceState.containsKey(Constants.KEY_AGE)) {
             ageS = ((String)savedInstanceState.get(Constants.KEY_AGE));
             String ageStr = getString(R.string.age) + ageS;
-            textViewAge.setText(ageStr);
+            textViewBirth.setText(ageStr);
         }
 
         if (savedInstanceState.containsKey(Constants.KEY_REG)) {
@@ -168,7 +163,6 @@ public class MainActivity extends AppCompatActivity {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putString(Constants.KEY_DOB, textViewBirth.getText().toString());
         outState.putString(Constants.KEY_AGE, ageS);
         outState.putString(Constants.KEY_REG, regButton.getText().toString());
         outState.putBoolean(Constants.KEY_REG_STATE, regButton.isEnabled());
