@@ -8,16 +8,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin">
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/text_pad"
-            android:textSize="@dimen/header"
             android:gravity="center"
-            android:text="@string/greeting" />
+            android:text="@string/greeting"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            style="@style/Base.TextAppearance.AppCompat.Medium"/>
         <!-- Edited out unused views - can be used for auth info
         <TextView
             android:id="@+id/userName"
@@ -36,88 +38,146 @@
          -->
         <TextView
             android:id="@+id/FormTitle"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/title"
-            android:textSize="@dimen/header"
-            android:padding="@dimen/text_pad"/>
+            style="@style/Base.TextAppearance.AppCompat.Large"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"/>
 
-        <EditText
-            android:id="@+id/name"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="@string/name"
-            android:inputType="textPersonName"
-            android:padding="@dimen/text_pad"
-            android:imeOptions="flagNoExtractUi"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="@dimen/activity_vertical_margin">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/name"/>
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:imeOptions="flagNoExtractUi"
+                android:background="@drawable/edit_text_border"
+                android:padding="@dimen/form_pad"
+                style="@style/Base.TextAppearance.AppCompat.Medium"
             />
 
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="@dimen/activity_vertical_margin">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/email"/>
         <EditText
             android:id="@+id/email"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="@string/email"
+            android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
-            android:padding="@dimen/text_pad"
             android:imeOptions="flagNoExtractUi"
+            android:background="@drawable/edit_text_border"
+            android:padding="@dimen/form_pad"
+            style="@style/Base.TextAppearance.AppCompat.Medium"
             />
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="@dimen/activity_vertical_margin">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/username"/>
         <EditText
             android:id="@+id/username"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="@string/username"
+            android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:padding="@dimen/text_pad"
             android:imeOptions="flagNoExtractUi"
+            android:background="@drawable/edit_text_border"
+            android:padding="@dimen/form_pad"
+            style="@style/Base.TextAppearance.AppCompat.Medium"
             />
+    </LinearLayout>
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="@dimen/activity_vertical_margin">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/occupation"/>
         <EditText
             android:id="@+id/occupation"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="@string/occupation"
+            android:layout_height="wrap_content"
             android:inputType="textCapWords"
-            android:padding="@dimen/text_pad"
             android:imeOptions="flagNoExtractUi"
+            android:background="@drawable/edit_text_border"
+            android:padding="@dimen/form_pad"
+            style="@style/Base.TextAppearance.AppCompat.Medium"
             />
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="@dimen/activity_vertical_margin">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/desc"/>
         <EditText
             android:id="@+id/desc"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="@string/desc"
+            android:layout_height="96dp"
             android:inputType="textMultiLine|textCapSentences|textNoSuggestions"
-            android:padding="@dimen/text_pad"
             android:imeOptions="flagNoExtractUi"
+            android:background="@drawable/edit_text_border"
+            android:padding="@dimen/form_pad"
+            android:gravity="top"
+            style="@style/Base.TextAppearance.AppCompat.Medium"
         />
+    </LinearLayout>
 
         <TextView
             android:id="@+id/dob"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="@string/dob"
-            android:padding="@dimen/text_pad"
-            android:textSize="@dimen/text_size"
-            />
-
-        <TextView
-            android:id="@+id/age"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/age"
-            android:textSize="@dimen/text_size"
-            android:padding="@dimen/text_pad"
+            android:layout_height="wrap_content"
+            android:text="@string/dob"
+            style="@style/Base.TextAppearance.AppCompat.Medium"
+            android:background="@drawable/edit_text_border"
+            android:padding="@dimen/form_pad"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
             />
 
         <Button
             android:id="@+id/registrationButton"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/register"
-            android:onClick="goToRegisterActivity"
-            android:padding="@dimen/text_pad"
+            android:layout_height="wrap_content"
             android:enabled="false"
-            />
+            android:onClick="goToRegisterActivity"
+            android:text="@string/young"
+            android:background="@drawable/button_inactive"
+            style="@style/Base.TextAppearance.AppCompat.Medium"
+            android:textStyle="italic"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"/>
     </LinearLayout>
 </ScrollView>

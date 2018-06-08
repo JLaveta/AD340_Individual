@@ -60,19 +60,7 @@ public class MainActivityTest {
         onView(withId(R.id.textView))
                 .check(matches(withText(R.string.greeting)));
 
-        //Checks form hints and text
-        onView(withId(R.id.name))
-                .check(matches(withHint(R.string.name)));
-        onView(withId(R.id.email))
-                .check(matches(withHint(R.string.email)));
-        onView(withId(R.id.username))
-                .check(matches(withHint(R.string.username)));
-        onView(withId(R.id.dob))
-                .check(matches(withHint(R.string.dob)));
-        onView(withId(R.id.desc))
-                .check(matches(withHint(R.string.desc)));
-        onView(withId(R.id.age))
-                .check(matches(withText(R.string.age)));
+        //Ensure reg button is disabled
         onView(withId(R.id.registrationButton))
                 .check(matches(not(isEnabled())));
 
